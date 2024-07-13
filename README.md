@@ -34,34 +34,34 @@ Welcome to the SOP Management System project! This project is designed to help o
 - MongoDB
 
 ### Clone the repository:
-   git clone https://github.com/yourusername/sopManagement.git
+   '''git clone https://github.com/yourusername/sopManagement.git'''
 
 ### Backend Setup
 
-1. cd sopManagement/backend [Navigate to the backend folder.]
+1. '''cd sopManagement/backend''' [Navigate to the backend folder.]
 2. Install dependencies:
    
-   - npm install
+   - '''npm install'''
 3. Create a '.env' file and add your MongoDB URI and OpenAI API key:
 
-   - touch .env [Create an environment file in the root folder of the directory.]
-   - MONGODB_URI=your_mongodb_uri
-   - OPENAI_API_KEY=your_openai_api_key
+   - '''touch .env''' [Create an environment file in the root folder of the directory.]
+   - '''MONGODB_URI=your_mongodb_uri'''
+   - '''OPENAI_API_KEY=your_openai_api_key'''
 
 4.  Start the backend server:
 
-   -npm start
+   - '''npm start'''
 
 ### Frontend Setup
 
-5. cd ../frontend [Navigate to the frontend folder.]
+5. '''cd ../frontend''' [Navigate to the frontend folder.]
 6. Install dependencies:
    
-   -npm install
+   - '''npm install'''
    
 7. Start the frontend server:
 
-   -npm start
+   - '''npm start'''
 
 ### Usage
 Open your browser and navigate to http://localhost:3000.
