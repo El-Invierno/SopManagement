@@ -24,53 +24,6 @@ Welcome to the SOP Management System project! This project is designed to help o
 - **Automation of SOP-related Macros**
 - **Real-time SOP Monitoring and Alerts**
 
-## Project Structure
-
-Here is the file structure of the project:
-
-sopManagement/
-├── backend/
-│ ├── config/
-│ │ └── db.js
-│ ├── controllers/
-│ │ ├── alertController.js
-│ │ ├── aiService.js
-│ │ ├── collaborationController.js
-│ │ ├── knowledgeSessionController.js
-│ │ ├── macroController.js
-│ │ ├── sopController.js
-│ ├── models/
-│ │ ├── Alert.js
-│ │ ├── Collaboration.js
-│ │ ├── KnowledgeSession.js
-│ │ ├── Macro.js
-│ │ ├── SOP.js
-│ ├── routes/
-│ │ ├── alertRoutes.js
-│ │ ├── aiRoutes.js
-│ │ ├── collaborationRoutes.js
-│ │ ├── knowledgeSessionRoutes.js
-│ │ ├── macroRoutes.js
-│ │ ├── sopRoutes.js
-│ ├── services/
-│ │ └── aiService.js
-│ └── server.js
-├── frontend/
-│ ├── public/
-│ └── src/
-│ ├── components/
-│ │ ├── SOPForm.js
-│ │ ├── AssessQuality.js
-│ │ ├── AISuggestions.js
-│ │ ├── Collaboration.js
-│ │ ├── KnowledgeSession.js
-│ ├── pages/
-│ │ └── Home.js
-│ ├── services/
-│ │ └── api.js
-│ └── App.js
-└── package.json
-
 ## Installation
 
 ### Prerequisites
@@ -93,15 +46,18 @@ sopManagement/
    OPENAI_API_KEY=your_openai_api_key
 
 4. npm start [Start the backend server.]
-5. cd ../frontend
-6. Install dependencies [npm install]
-7. npm start [Start the frontend server.]
 
-Usage
+### Frontend Setup
+
+6. cd ../frontend
+7. Install dependencies [npm install]
+8. npm start [Start the frontend server.]
+
+### Usage
 Open your browser and navigate to http://localhost:3000.
 Use the web interface to manage SOPs, assess quality, collaborate, and more.
 
 
-License
+### License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
