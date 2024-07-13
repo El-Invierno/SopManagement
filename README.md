@@ -7,7 +7,7 @@ Welcome to the SOP Management System project! This project is designed to help o
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
-- [API Docs](#API Documentation)
+- [API Documentation](#api-documentation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
