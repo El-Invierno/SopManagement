@@ -14,16 +14,16 @@ Welcome to the SOP Management System project! This project is designed to help o
 
 ## Features
 
-- **Automated SOP Quality Assessment**
-- **SOP Validation and Compliance Checker**
-- **Intelligent SOP Update Suggestions**
-- **SOP Change Detection and Logging**
-- **Automated SOP Gap Analysis**
-- **SOP Enhancement through Expert Collaboration**
-- **Knowledge Session Scheduler and Tracker**
-- **SOP Control Capture and Verification**
-- **Automation of SOP-related Macros**
-- **Real-time SOP Monitoring and Alerts**
+- Automated SOP Quality Assessment
+- SOP Validation and Compliance Checker
+- Intelligent SOP Update Suggestions
+- SOP Change Detection and Logging
+- Automated SOP Gap Analysis
+- SOP Enhancement through Expert Collaboration
+- Knowledge Session Scheduler and Tracker
+- SOP Control Capture and Verification
+- Automation of SOP-related Macros
+- Real-time SOP Monitoring and Alerts
 
 ## Installation
 
@@ -34,34 +34,57 @@ Welcome to the SOP Management System project! This project is designed to help o
 - MongoDB
 
 ### Clone the repository:
-   ```git clone https://github.com/yourusername/sopManagement.git```
+
+   ```powershell
+   git clone https://github.com/yourusername/sopManagement.git
+   ```
 
 ### Backend Setup
 
-1. ```cd sopManagement/backend``` [Navigate to the backend folder.]
-2. Install dependencies:
+1. Navigate to the backend folder:
    
-   - ```npm install```
-3. Create a '.env' file and add your MongoDB URI and OpenAI API key:
+   ```powershell
+   cd sopManagement/backend
+   ```
+2. Install dependencies:
 
-   - ```touch .env``` [Create an environment file in the root folder of the directory.]
-   - ```MONGODB_URI=your_mongodb_uri```
-   - ```OPENAI_API_KEY=your_openai_api_key```
+   ```powershell
+   npm install
+   ```
+3. Create a '.env' file in the backend folder and add your MongoDB URI and OpenAI API key:
 
+   ```powershell
+      touch .env
+   ```
+
+   ```powershell
+      MONGODB_URI=your_mongodb_uri # Add the connection string from MongoDB.
+      OPENAI_API_KEY=your_openai_api_key # Get yourself an API key from OpenAI.
+   ```
 4.  Start the backend server:
 
-   - ```npm start```
+    ```powershell
+    npm start
+    ```
 
 ### Frontend Setup
 
-5. ```cd ../frontend``` [Navigate to the frontend folder.]
-6. Install dependencies:
+1. Navigate to the frontend folder:
    
-   - ```npm install```
+   ```powershell
+   cd ../frontend
+   ```
+2. Install dependencies:
+   
+   ```powershell
+   npm install
+   ```
    
 7. Start the frontend server:
 
-   - ```npm start```
+   ```powershell
+    npm start
+   ```
 
 ### Usage
 Open your browser and navigate to http://localhost:3000.
@@ -70,15 +93,15 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
 ## API Documentation
 
 ### 1. Create SOP
-- **Endpoint**: `POST /api/sops/create`
-- **Input**:
+- Endpoint: `POST /api/sops/create`
+- Input:
   ```json
   {
     "title": "SOP Title",
     "content": "SOP Content"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -93,9 +116,9 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 2. Assess SOP Quality
-- **Endpoint**: `GET /api/sops/assess/:id`
-- **Input**: SOP ID as a URL parameter.
-- **Output**:
+- Endpoint: `GET /api/sops/assess/:id`
+- Input: SOP ID as a URL parameter.
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -110,14 +133,14 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 3. Generate AI Suggestions
-- **Endpoint**: `POST /api/ai/suggestions`
-- **Input**:
+- Endpoint: `POST /api/ai/suggestions`
+- Input:
   ```json
   {
     "content": "SOP Content"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "suggestions": "Generated AI Suggestions"
@@ -125,9 +148,9 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 4. Validate SOP Compliance
-- **Endpoint**: `GET /api/sops/validate/:id`
-- **Input**: SOP ID as a URL parameter.
-- **Output**:
+- Endpoint: `GET /api/sops/validate/:id`
+- Input: SOP ID as a URL parameter.
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -142,14 +165,14 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 5. Log Change to SOP
-- **Endpoint**: `POST /api/sops/log/:id`
-- **Input**:
+- Endpoint: `POST /api/sops/log/:id`
+- Input:
   ```json
   {
     "change": "Description of the change"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -169,9 +192,9 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 6. Perform Gap Analysis on SOP
-- **Endpoint**: `GET /api/sops/gap-analysis/:id`
-- **Input**: SOP ID as a URL parameter.
-- **Output**:
+- Endpoint: `GET /api/sops/gap-analysis/:id`
+- Input: SOP ID as a URL parameter.
+- Output:
   ```json
   {
     "gaps": [
@@ -182,14 +205,14 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 7. Add Control to SOP
-- **Endpoint**: `POST /api/sops/control/:id`
-- **Input**:
+- Endpoint: `POST /api/sops/control/:id`
+- Input:
   ```json
   {
     "control": "Description of the control"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -210,9 +233,9 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 8. Verify Control in SOP
-- **Endpoint**: `PUT /api/sops/control/:id/:controlId`
-- **Input**: SOP ID and Control ID as URL parameters.
-- **Output**:
+- Endpoint: `PUT /api/sops/control/:id/:controlId`
+- Input: SOP ID and Control ID as URL parameters.
+- Output:
   ```json
   {
     "_id": "sopId",
@@ -233,8 +256,8 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 9. Add Collaboration Suggestion
-- **Endpoint**: `POST /api/collaborations/add`
-- **Input**:
+- Endpoint: `POST /api/collaborations/add`
+- Input:
   ```json
   {
     "sopId": "sopId",
@@ -242,7 +265,7 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
     "suggestions": "Collaboration suggestions"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "collaborationId",
@@ -254,8 +277,8 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 10. Schedule Knowledge Session
-- **Endpoint**: `POST /api/knowledge-sessions/schedule`
-- **Input**:
+- Endpoint: `POST /api/knowledge-sessions/schedule`
+- Input:
   ```json
   {
     "title": "Session Title",
@@ -263,7 +286,7 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
     "participants": ["Participant 1", "Participant 2"]
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "sessionId",
@@ -275,15 +298,15 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 11. Create Macro
-- **Endpoint**: `POST /api/macros/create`
-- **Input**:
+- Endpoint: `POST /api/macros/create`
+- Input:
   ```json
   {
     "name": "Macro Name",
     "content": "Macro Content"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "macroId",
@@ -294,15 +317,15 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 12. Create Alert
-- **Endpoint**: `POST /api/alerts/create`
-- **Input**:
+- Endpoint: `POST /api/alerts/create`
+- Input:
   ```json
   {
     "message": "Alert Message",
     "sopId": "sopId"
   }
   ```
-- **Output**:
+- Output:
   ```json
   {
     "_id": "alertId",
@@ -313,8 +336,8 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
   ```
 
 ### 13. Get All Alerts
-- **Endpoint**: `GET /api/alerts/all`
-- **Output**:
+- Endpoint: `GET /api/alerts/all`
+- Output:
   ```json
   [
     {
