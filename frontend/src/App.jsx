@@ -8,6 +8,7 @@ import ControlManagement from './components/ControlManagement';
 import GapAnalysis from './components/GapAnalysis';
 import LogChange from './components/LogChange';
 import ValidateCompliance from './components/ValidateCompliance';
+import ViewSOP from './components/ViewSOP'; // Import ViewSOP component
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +42,7 @@ const App = () => {
             </button>
             {/* Tabs (visible on larger screens) */}
             <div className="hidden md:flex space-x-6">
-              <Link to="/" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Home</Link>
+              <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link> {/* New Link */}
               <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
               <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
               <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggestions</Link>
@@ -55,6 +56,9 @@ const App = () => {
         {/* Hamburger Menu (Tabs) */}
         <div className={`bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 ${menuOpen ? 'block' : 'hidden'} md:hidden`} id="navbar-hamburger">
           <ul className="flex flex-col">
+            <li>
+              <Link to="/view-sops" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>View SOPs</Link> {/* New Link */}
+            </li>
             <li>
               <Link to="/" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu} aria-current="page">Home</Link>
             </li>
@@ -93,6 +97,7 @@ const App = () => {
           <Route path="/gap-analysis" element={<GapAnalysis />} />
           <Route path="/log-change" element={<LogChange />} />
           <Route path="/validate-compliance" element={<ValidateCompliance />} />
+          <Route path="/view-sops" element={<ViewSOP />} /> {/* New Route */}
         </Routes>
       </main>
     </Router>

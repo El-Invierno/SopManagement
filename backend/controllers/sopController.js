@@ -12,6 +12,20 @@ const assessReadability = async(content) => {
     }
 };
 
+
+
+// Get all SOPs
+export const getAllSOPs = async(req, res) => {
+    try {
+        const sops = await SOP.find();
+        res.json(sops);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
 // Create a new SOP
 export const createSOP = async(req, res) => {
     const { title, content } = req.body;
