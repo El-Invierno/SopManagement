@@ -34,13 +34,13 @@ const Home = () => {
       href: "/ai-suggestions",
       cta: "AI Suggestions",
     },
-    {
-      Icon: CalendarIcon,
-      name: "Control Management",
-      description: "Manage and track controls efficiently.",
-      href: "/control-management",
-      cta: "Control Management",
-    },
+    // {
+    //   Icon: CalendarIcon,
+    //   name: "Control Management",
+    //   description: "Manage and track controls efficiently.",
+    //   href: "/control-management",
+    //   cta: "Control Management",
+    // },
     {
       Icon: MagnifyingGlassIcon,
       name: "Gap Analysis",

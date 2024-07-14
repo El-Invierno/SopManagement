@@ -179,6 +179,43 @@ export const performGapAnalysis = async(req, res) => {
     }
 };
 
+// Update an existing SOP
+export const updateSOP = async(req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    try {
+        console.log('Updating SOP with ID:', id);
+        const updatedSOP = await SOP.findByIdAndUpdate(id, { title, content }, { new: true });
+        if (!updatedSOP) {
+            console.log('SOP not found:', id);
+            return res.status(404).json({ msg: 'SOP not found' });
+        }
+        console.log('SOP updated successfully:', updatedSOP);
+        res.json(updatedSOP);
+    } catch (err) {
+        console.error('Error updating SOP:', err);
+        res.status(500).send('Server Error');
+    }
+};
+
+// Delete an existing SOP
+export const deleteSOP = async(req, res) => {
+    const { id } = req.params;
+    try {
+        console.log('Deleting SOP with ID:', id);
+        const deletedSOP = await SOP.findByIdAndDelete(id);
+        if (!deletedSOP) {
+            console.log('SOP not found:', id);
+            return res.status(404).json({ msg: 'SOP not found' });
+        }
+        console.log('SOP deleted successfully:', deletedSOP);
+        res.json({ msg: 'SOP deleted' });
+    } catch (err) {
+        console.error('Error deleting SOP:', err);
+        res.status(500).send('Server Error');
+    }
+};
+
 // Add a control to an SOP
 export const addControl = async(req, res) => {
     const { id } = req.params;

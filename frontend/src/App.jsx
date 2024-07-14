@@ -46,7 +46,7 @@ const App = () => {
               <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
               <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
               <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggestions</Link>
-              <Link to="/control-management" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Control Management</Link>
+              {/* <Link to="/control-management" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Control Management</Link> */}
               <Link to="/gap-analysis" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Gap Analysis</Link>
               <Link to="/log-change" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Log Change</Link>
               <Link to="/validate-compliance" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Validate Compliance</Link>
@@ -71,9 +71,9 @@ const App = () => {
             <li>
               <Link to="/ai-suggestions" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>AI Suggestions</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/control-management" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Control Management</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/gap-analysis" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Gap Analysis</Link>
             </li>
@@ -93,7 +93,7 @@ const App = () => {
           <Route path="/create-sop" element={<SOPForm />} />
           <Route path="/assess-quality" element={<AssessQuality />} />
           <Route path="/ai-suggestions" element={<AISuggestions />} />
-          <Route path="/control-management" element={<ControlManagement />} />
+          {/* <Route path="/control-management" element={<ControlManagement />} /> */}
           <Route path="/gap-analysis" element={<GapAnalysis />} />
           <Route path="/log-change" element={<LogChange />} />
           <Route path="/validate-compliance" element={<ValidateCompliance />} />
