@@ -9,6 +9,7 @@ const ViewSOP = () => {
   const [updateSOP, setUpdateSOP] = useState(null); // State to store the SOP being updated
   const [updatedTitle, setUpdatedTitle] = useState('');
   const [updatedContent, setUpdatedContent] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchSOPs();
@@ -71,11 +72,28 @@ const ViewSOP = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredSOPs = sops.filter((sop) =>
+    sop.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-4">All SOPs</h1>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search by SOP Title"
+          className="p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sops.map((sop) => (
+        {filteredSOPs.map((sop) => (
           <div key={sop._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <svg
               className="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"

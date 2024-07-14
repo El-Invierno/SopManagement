@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { performGapAnalysis } from '../../api';
+import ViewSOP from './ViewSOP';
 
 const GapAnalysis = () => {
   const [id, setId] = useState('');
@@ -16,7 +17,8 @@ const GapAnalysis = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
+    <div>
+      <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Gap Analysis</h2>
       <input
         className="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-4"
@@ -40,6 +42,9 @@ const GapAnalysis = () => {
         </ul>
       )}
     </div>
+    <ViewSOP></ViewSOP>
+    </div>
+    
   );
 };
 

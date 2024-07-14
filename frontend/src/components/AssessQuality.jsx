@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAssessQuality } from '../../api';
+import ViewSOP from './ViewSOP';
 
 const AssessQuality = () => {
   const [id, setId] = useState('');
@@ -16,7 +17,8 @@ const AssessQuality = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
+    <div>
+      <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Assess Quality</h2>
       <form className="space-y-4">
         <div>
@@ -45,6 +47,9 @@ const AssessQuality = () => {
         </p>
       )}
     </div>
+      <ViewSOP></ViewSOP>
+    </div>
+    
   );
 };
 
