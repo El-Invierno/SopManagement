@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addControl, verifyControl } from '../../../backend/services/api';
+import { addControl, verifyControl } from '../../api';
 
 const ControlManagement = () => {
   const [id, setId] = useState('');
@@ -45,6 +45,7 @@ const ControlManagement = () => {
           onChange={(e) => setControl(e.target.value)}
         />
         <button
+          type="button"
           className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300"
           onClick={handleAddControl}
         >
@@ -60,6 +61,7 @@ const ControlManagement = () => {
           onChange={(e) => setControlId(e.target.value)}
         />
         <button
+          type="button"
           className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300"
           onClick={handleVerifyControl}
         >

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createSOP } from '../../../backend/services/api';
-import { BorderBeam } from '@/components/magicui/border-beam.jsx'; // Adjust the import path as per your project structure
+import { createSOP } from '../../api';
+
 
 const SOPForm = () => {
   const [title, setTitle] = useState('');

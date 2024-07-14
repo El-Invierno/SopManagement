@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { performGapAnalysis } from '../../../backend/services/api';
+import { performGapAnalysis } from '../../api';
 
 const GapAnalysis = () => {
   const [id, setId] = useState('');
@@ -26,6 +26,7 @@ const GapAnalysis = () => {
         onChange={(e) => setId(e.target.value)}
       />
       <button
+        type="button"
         className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300"
         onClick={handlePerformAnalysis}
       >
