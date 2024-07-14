@@ -1,6 +1,7 @@
-// ViewSOP.js
-
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:5000/api'; // Update with your API base URL
 
 const ViewSOP = () => {
   const [sops, setSOPs] = useState([]);
@@ -11,12 +12,8 @@ const ViewSOP = () => {
 
   const fetchSOPs = async () => {
     try {
-      const response = await fetch('/api/view-sops'); // Assuming your backend endpoint is '/api/sops'
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setSOPs(data);
+      const response = await axios.get(`${API_BASE_URL}/sops/view-sops`);
+      setSOPs(response.data);
     } catch (error) {
       console.error('Error fetching SOPs:', error);
       // Handle error state or display an error message
