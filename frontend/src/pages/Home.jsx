@@ -1,10 +1,18 @@
 import React from 'react';
 import { BentoCard } from '@/components/magicui/bento-grid';
-import { FileTextIcon, InputIcon, GlobeIcon, CalendarIcon, BellIcon } from '@radix-ui/react-icons';
+import { FileTextIcon, InputIcon, GlobeIcon, CalendarIcon, BellIcon, MagnifyingGlassIcon, CheckCircledIcon, ViewGridIcon, ViewHorizontalIcon,  } from '@radix-ui/react-icons';
 import WordFadeIn from "@/components/magicui/word-fade-in";
+import { BrainCircuit } from 'lucide-react';
 
 const Home = () => {
   const features = [
+    {
+      Icon: ViewHorizontalIcon,
+      name: "View SOPs",
+      description: "View existing Standard Operating Procedures.",
+      href: "/view-sops",
+      cta: "View SOPs",
+    },
     {
       Icon: FileTextIcon,
       name: "Create SOP",
@@ -20,7 +28,7 @@ const Home = () => {
       cta: "Assess Quality",
     },
     {
-      Icon: GlobeIcon,
+      Icon: BrainCircuit,
       name: "AI Suggestions",
       description: "Explore AI-powered suggestions for process improvement.",
       href: "/ai-suggestions",
@@ -34,7 +42,7 @@ const Home = () => {
       cta: "Control Management",
     },
     {
-      Icon: BellIcon,
+      Icon: MagnifyingGlassIcon,
       name: "Gap Analysis",
       description: "Perform gap analysis to identify areas for improvement.",
       href: "/gap-analysis",
@@ -48,7 +56,7 @@ const Home = () => {
       cta: "Log Change",
     },
     {
-      Icon: BellIcon,
+      Icon: CheckCircledIcon,
       name: "Validate Compliance",
       description: "Validate compliance with regulatory requirements.",
       href: "/validate-compliance",
