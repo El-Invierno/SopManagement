@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createSOP } from '../../../backend/services/api';
+import { BorderBeam } from '@/components/magicui/border-beam.jsx'; // Adjust the import path as per your project structure
 
 const SOPForm = () => {
   const [title, setTitle] = useState('');
@@ -20,34 +21,40 @@ const SOPForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Create SOP</h2>
-      <div className="mb-4">
-        <label className="block text-gray-700">Title:</label>
-        <input
-          className="w-full p-2 border border-gray-300 rounded-md"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Content:</label>
-        <textarea
-          className="w-full p-2 border border-gray-300 rounded-md"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        ></textarea>
-      </div>
-      <button
-        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-        type="submit"
-      >
-        Create SOP
-      </button>
-    </form>
+    <div className="max-w-sm mx-auto relative">
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-4">
+        <h2 className="text-2xl font-bold mb-4 text-center">Create SOP</h2>
+        <div className="mb-4">
+          <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title:</label>
+          <input
+            type="text"
+            id="title"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter SOP title"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content:</label>
+          <textarea
+            id="content"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-40 resize-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Enter SOP content"
+            required
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Create SOP
+        </button>
+      </form>
+    </div>
   );
 };
 

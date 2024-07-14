@@ -31,21 +31,21 @@ const ControlManagement = () => {
       <h2 className="text-2xl font-bold mb-4">Control Management</h2>
       <div className="mb-4">
         <input
-          className="w-full p-2 border border-gray-300 rounded-md mb-2"
+          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-2"
           type="text"
           placeholder="Enter SOP ID"
           value={id}
           onChange={(e) => setId(e.target.value)}
         />
         <input
-          className="w-full p-2 border border-gray-300 rounded-md mb-2"
+          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-2"
           type="text"
           placeholder="Enter Control"
           value={control}
           onChange={(e) => setControl(e.target.value)}
         />
         <button
-          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+          className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300"
           onClick={handleAddControl}
         >
           Add Control
@@ -53,14 +53,14 @@ const ControlManagement = () => {
       </div>
       <div>
         <input
-          className="w-full p-2 border border-gray-300 rounded-md mb-2"
+          className="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block mb-2"
           type="text"
           placeholder="Enter Control ID"
           value={controlId}
           onChange={(e) => setControlId(e.target.value)}
         />
         <button
-          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+          className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300"
           onClick={handleVerifyControl}
         >
           Verify Control

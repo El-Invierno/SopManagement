@@ -1,21 +1,73 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BentoCard } from '@/components/magicui/bento-grid';
+import { FileTextIcon, InputIcon, GlobeIcon, CalendarIcon, BellIcon } from '@radix-ui/react-icons';
+import WordFadeIn from "@/components/magicui/word-fade-in";
 
 const Home = () => {
+  const features = [
+    {
+      Icon: FileTextIcon,
+      name: "Create SOP",
+      description: "Start creating your Standard Operating Procedures.",
+      href: "/create-sop",
+      cta: "Go to SOP Form",
+    },
+    {
+      Icon: InputIcon,
+      name: "Assess Quality",
+      description: "Assess and manage quality control processes.",
+      href: "/assess-quality",
+      cta: "Assess Quality",
+    },
+    {
+      Icon: GlobeIcon,
+      name: "AI Suggestions",
+      description: "Explore AI-powered suggestions for process improvement.",
+      href: "/ai-suggestions",
+      cta: "AI Suggestions",
+    },
+    {
+      Icon: CalendarIcon,
+      name: "Control Management",
+      description: "Manage and track controls efficiently.",
+      href: "/control-management",
+      cta: "Control Management",
+    },
+    {
+      Icon: BellIcon,
+      name: "Gap Analysis",
+      description: "Perform gap analysis to identify areas for improvement.",
+      href: "/gap-analysis",
+      cta: "Gap Analysis",
+    },
+    {
+      Icon: BellIcon,
+      name: "Log Change",
+      description: "Log and track changes made to SOPs.",
+      href: "/log-change",
+      cta: "Log Change",
+    },
+    {
+      Icon: BellIcon,
+      name: "Validate Compliance",
+      description: "Validate compliance with regulatory requirements.",
+      href: "/validate-compliance",
+      cta: "Validate Compliance",
+    },
+  ];
+
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Welcome to the SOP Management System</h2>
-      <nav>
-        <ul className="space-y-2">
-          <li><Link to="/create-sop" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Create SOP</Link></li>
-          <li><Link to="/assess-quality" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Assess Quality</Link></li>
-          <li><Link to="/ai-suggestions" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">AI Suggestions</Link></li>
-          <li><Link to="/control-management" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Control Management</Link></li>
-          <li><Link to="/gap-analysis" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Gap Analysis</Link></li>
-          <li><Link to="/log-change" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Log Change</Link></li>
-          <li><Link to="/validate-compliance" className="block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Validate Compliance</Link></li>
-        </ul>
-      </nav>
+    <div className="bg-gray-100 min-h-screen py-8 rounded-2xl">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-6 text-center">
+          <WordFadeIn delay={0.0} words="Welcome to the SOP Management System" />
+        </h2>
+        <div className="flex flex-wrap justify-center gap-4">
+          {features.map((feature, index) => (
+            <BentoCard key={index} {...feature} className="w-full sm:w-1/2 lg:w-1/3" />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
