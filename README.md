@@ -2,6 +2,10 @@
 
 Welcome to the SOP Management System project! This project is designed to help organizations manage their Standard Operating Procedures (SOPs) efficiently. The system includes features for SOP quality assessment, compliance checking, collaborative editing, and more.
 
+## Contact Developers: [New Horizon College of Engineering, AIML Dept.]
+- Yash Tawde
+- Rahul Jauhari 
+
 ## Table of Contents
 
 - [Features](#features)
