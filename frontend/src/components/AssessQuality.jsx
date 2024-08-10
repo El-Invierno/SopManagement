@@ -13,7 +13,6 @@ const AssessQuality = () => {
     try {
       // Call the API function to get the assessment
       const response = await getAssessQuality(id);
-      console.log(response);
       // Set the quality score and analysis from the response
       setQuality(response.data.qualityScore);
       setAnalysis(response.data.analysis);

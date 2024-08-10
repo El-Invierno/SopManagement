@@ -1,6 +1,8 @@
 import express from 'express';
 import { generateSuggestions, assessQualityWithOpenAI } from '../services/aiService.js';
 import { getSOPContentById, updateQualityScore } from '../controllers/sopController.js';
+import { assessQuality } from '../controllers/sopController.js'; // Import the updated function
+
 
 const router = express.Router();
 
@@ -29,5 +31,7 @@ router.get('/assess/:id', async(req, res) => {
         res.status(500).json({ error: 'Failed to assess SOP quality' });
     }
 });
+// router.get('/assess/:id', assessQuality); // Use the updated route
+
 
 export default router;

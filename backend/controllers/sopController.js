@@ -1,6 +1,8 @@
 import SOP from '../models/SOP.js';
 import { diffLines } from 'diff';
 import mongoose from 'mongoose';
+import { assessQualityWithOpenAI } from '../services/aiService.js';
+
 
 // Get all SOPs
 export const getAllSOPs = async(req, res) => {
@@ -23,11 +25,15 @@ export const createSOP = async(req, res) => {
         const newSOP = new SOP({ title, content });
         await newSOP.save();
 
-        // Log the creation in changeLogs
-        newSOP.changeLogs.push({ change: `Created SOP with title: ${title}` });
+        // Assess the quality score for the newly created SOP
+        const { analysis, qualityScore } = await assessQualityWithOpenAI(content);
+
+        // Update the SOP with the quality score and analysis
+        newSOP.qualityScore = qualityScore;
+        newSOP.changeLogs.push({ change: `Created SOP with title: ${title}. Quality Score: ${qualityScore}.` });
         await newSOP.save();
 
-        console.log('New SOP created:', newSOP);
+        console.log('New SOP created and assessed:', newSOP);
         res.json(newSOP);
     } catch (err) {
         console.error('Error creating SOP:', err);
@@ -192,5 +198,67 @@ export const updateQualityScore = async(id, qualityScore) => {
     } catch (err) {
         console.error('Error updating quality score:', err);
         throw new Error('Server Error');
+    }
+};
+
+// Get the quality score of an SOP by its ID
+export const getQualityScoreById = async(req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid SOP ID' });
+    }
+
+    try {
+        console.log('Fetching quality score for SOP with ID:', id);
+        const sop = await SOP.findById(id);
+
+        if (!sop) {
+            return res.status(404).json({ message: 'SOP not found' });
+        }
+
+        console.log('Quality score retrieved:', sop.qualityScore);
+        res.json({ qualityScore: sop.qualityScore });
+    } catch (err) {
+        console.error('Error fetching quality score:', err);
+        res.status(500).send('Server Error');
+    }
+};
+
+export const assessQuality = async(req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid SOP ID' });
+    }
+
+    try {
+        const sop = await SOP.findById(id);
+
+        if (!sop) {
+            return res.status(404).json({ message: 'SOP not found' });
+        }
+
+        // Compare the current content with the last assessed content
+        const { content } = sop;
+        const lastQualityScore = sop.qualityScore;
+
+        // Assess the quality only if content has changed
+        const { analysis, qualityScore } = await assessQualityWithOpenAI(content);
+
+        if (qualityScore === lastQualityScore) {
+            // No change in quality score
+            return res.json({ analysis: sop.analysis, qualityScore: lastQualityScore });
+        }
+
+        // Update the SOP with the new quality score and analysis
+        sop.qualityScore = qualityScore;
+        sop.analysis = analysis;
+        await sop.save();
+
+        res.json({ analysis, qualityScore });
+    } catch (error) {
+        console.error('Failed to assess SOP quality:', error.message);
+        res.status(500).json({ error: 'Failed to assess SOP quality' });
     }
 };
