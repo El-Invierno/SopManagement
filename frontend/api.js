@@ -11,6 +11,8 @@ export const performGapAnalysis = (id) => API.get(`/sops/gap-analysis/${id}`);
 export const addControl = (id, control) => API.post(`/sops/control/${id}`, control);
 export const verifyControl = (id, controlId) => API.put(`/sops/control/${id}/${controlId}`);
 export const getAllSOPs = () => API.get('/sops/view-sops');
+export const getChangeLogs = (id) => API.get(`/sops/change-logs/${id}`); // Endpoint for specific SOP
+export const getAllChangeLogs = () => API.get('/sops/change-logs'); // New endpoint for all SOPs
 
 // AI APIs
 export const getAISuggestions = (content) => API.post('/ai/suggestions', { content });

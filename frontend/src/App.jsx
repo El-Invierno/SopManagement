@@ -45,11 +45,11 @@ const App = () => {
               <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link> {/* New Link */}
               <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
               <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
-              <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggestions</Link>
+              <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggest/Gap Analysis</Link>
               {/* <Link to="/control-management" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Control Management</Link> */}
-              <Link to="/gap-analysis" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Gap Analysis</Link>
+              {/* <Link to="/gap-analysis" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Gap Analysis</Link> */}
               <Link to="/log-change" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Log Change</Link>
-              <Link to="/validate-compliance" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Validate Compliance</Link>
+              {/* <Link to="/validate-compliance" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Validate Compliance</Link> */}
             </div>
           </div>
         </nav>
@@ -69,19 +69,19 @@ const App = () => {
               <Link to="/assess-quality" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Assess Quality</Link>
             </li>
             <li>
-              <Link to="/ai-suggestions" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>AI Suggestions</Link>
+              <Link to="/ai-suggestions" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>AI Suggest/Gap Analysis</Link>
             </li>
             {/* <li>
               <Link to="/control-management" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Control Management</Link>
             </li> */}
-            <li>
+            {/* <li>
               <Link to="/gap-analysis" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Gap Analysis</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/log-change" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Log Change</Link>
             </li>
             <li>
-              <Link to="/validate-compliance" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Validate Compliance</Link>
+              {/* <Link to="/validate-compliance" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Validate Compliance</Link> */}
             </li>
           </ul>
         </div>
@@ -94,9 +94,9 @@ const App = () => {
           <Route path="/assess-quality" element={<AssessQuality />} />
           <Route path="/ai-suggestions" element={<AISuggestions />} />
           {/* <Route path="/control-management" element={<ControlManagement />} /> */}
-          <Route path="/gap-analysis" element={<GapAnalysis />} />
+          {/* <Route path="/gap-analysis" element={<GapAnalysis />} /> */}
           <Route path="/log-change" element={<LogChange />} />
-          <Route path="/validate-compliance" element={<ValidateCompliance />} />
+          {/* <Route path="/validate-compliance" element={<ValidateCompliance />} /> */}
           <Route path="/view-sops" element={<ViewSOP />} /> {/* New Route */}
         </Routes>
       </main>

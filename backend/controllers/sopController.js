@@ -1,4 +1,6 @@
 import SOP from '../models/SOP.js';
+import { diffLines } from 'diff';
+import mongoose from 'mongoose';
 
 // Generate random readability score
 const assessReadability = async(content) => {
@@ -12,28 +14,32 @@ const assessReadability = async(content) => {
     }
 };
 
-
-
 // Get all SOPs
 export const getAllSOPs = async(req, res) => {
     try {
+        console.log('Fetching all SOPs');
         const sops = await SOP.find();
+        console.log('SOPs retrieved:', sops);
         res.json(sops);
     } catch (err) {
-        console.error(err.message);
+        console.error('Error fetching SOPs:', err.message);
         res.status(500).send('Server Error');
     }
 };
-
 
 // Create a new SOP
 export const createSOP = async(req, res) => {
     const { title, content } = req.body;
     try {
-        console.log('Creating a new SOP:', title);
+        console.log('Creating new SOP with title:', title);
         const newSOP = new SOP({ title, content });
         await newSOP.save();
-        console.log('SOP created successfully:', newSOP);
+
+        // Log the creation in changeLogs
+        newSOP.changeLogs.push({ change: `Created SOP with title: ${title}` });
+        await newSOP.save();
+
+        console.log('New SOP created:', newSOP);
         res.json(newSOP);
     } catch (err) {
         console.error('Error creating SOP:', err);
@@ -139,21 +145,57 @@ export const validateCompliance = async(req, res) => {
 // Log changes to an SOP
 export const logChange = async(req, res) => {
     const { id } = req.params;
-    const { change } = req.body;
+    const { newContent } = req.body;
+
     try {
-        console.log('Logging change for SOP with ID:', id, 'Change:', change);
+        console.log('Logging change for SOP with ID:', id);
         const sop = await SOP.findById(id);
         if (!sop) {
-            console.log('SOP not found:', id);
             return res.status(404).json({ msg: 'SOP not found' });
         }
 
-        sop.changeLogs.push({ change });
+        const oldContent = sop.content;
+        const changes = diffLines(oldContent, newContent);
+
+        const formattedChanges = changes
+            .map(part => {
+                const prefix = part.added ? '+' : part.removed ? '-' : '';
+                return `${prefix}${part.value}`;
+            })
+            .join('');
+
+        sop.changeLogs.push({ change: formattedChanges });
+        sop.content = newContent;
         await sop.save();
+
         console.log('Change logged successfully:', sop);
         res.json(sop);
     } catch (err) {
         console.error('Error logging change:', err);
+        res.status(500).send('Server Error');
+    }
+};
+
+// Get SOP changes
+export const getSOPChanges = async(req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid SOP ID' });
+    }
+
+    try {
+        console.log('Fetching SOP changes for ID:', id);
+        const sop = await SOP.findById(id);
+
+        if (!sop) {
+            return res.status(404).json({ message: 'SOP not found' });
+        }
+
+        console.log('SOP changes retrieved:', sop.changeLogs);
+        res.json(sop.changeLogs);
+    } catch (err) {
+        console.error('Error fetching SOP changes:', err);
         res.status(500).send('Server Error');
     }
 };
@@ -179,17 +221,38 @@ export const performGapAnalysis = async(req, res) => {
     }
 };
 
+export const getAllChangeLogs = async(req, res) => {
+    try {
+        console.log('Fetching change logs for all SOPs');
+        const sops = await SOP.find();
+        const allChangeLogs = sops.flatMap(sop => sop.changeLogs);
+        console.log('All change logs retrieved:', allChangeLogs);
+        res.json(allChangeLogs);
+    } catch (err) {
+        console.error('Error fetching change logs:', err);
+        res.status(500).send('Server Error');
+    }
+};
+
 // Update an existing SOP
 export const updateSOP = async(req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
     try {
         console.log('Updating SOP with ID:', id);
-        const updatedSOP = await SOP.findByIdAndUpdate(id, { title, content }, { new: true });
+        const updatedSOP = await SOP.findById(id);
         if (!updatedSOP) {
-            console.log('SOP not found:', id);
             return res.status(404).json({ msg: 'SOP not found' });
         }
+
+        // Log the change in changeLogs
+        updatedSOP.changeLogs.push({
+            change: `Updated SOP. Old Content: ${updatedSOP.content}, New Content: ${content}`,
+        });
+        updatedSOP.title = title;
+        updatedSOP.content = content;
+        await updatedSOP.save();
+
         console.log('SOP updated successfully:', updatedSOP);
         res.json(updatedSOP);
     } catch (err) {

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support
 
-const API_BASE_URL = 'http://localhost:5000/api'; // Update with your API base URL
+const API_BASE_URL = "http://localhost:5000/api"; // Update with your API base URL
 
 const ViewSOP = () => {
   const [sops, setSOPs] = useState([]);
-  const [expandedSopId, setExpandedSopId] = useState('');
+  const [expandedSopId, setExpandedSopId] = useState("");
   const [updateSOP, setUpdateSOP] = useState(null); // State to store the SOP being updated
-  const [updatedTitle, setUpdatedTitle] = useState('');
-  const [updatedContent, setUpdatedContent] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [updatedTitle, setUpdatedTitle] = useState("");
+  const [updatedContent, setUpdatedContent] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchSOPs();
@@ -20,14 +22,14 @@ const ViewSOP = () => {
       const response = await axios.get(`${API_BASE_URL}/sops/view-sops`);
       setSOPs(response.data);
     } catch (error) {
-      console.error('Error fetching SOPs:', error);
+      console.error("Error fetching SOPs:", error);
       // Handle error state or display an error message
     }
   };
 
   const toggleExpand = (id) => {
     if (expandedSopId === id) {
-      setExpandedSopId('');
+      setExpandedSopId("");
     } else {
       setExpandedSopId(id);
     }
@@ -49,13 +51,16 @@ const ViewSOP = () => {
     };
 
     try {
-      await axios.put(`${API_BASE_URL}/sops/update/${updateSOP._id}`, updatedSOP);
+      await axios.put(
+        `${API_BASE_URL}/sops/update/${updateSOP._id}`,
+        updatedSOP
+      );
       fetchSOPs(); // Refresh SOPs after update
       setUpdateSOP(null); // Clear update state
-      setUpdatedTitle(''); // Clear updated title
-      setUpdatedContent(''); // Clear updated content
+      setUpdatedTitle(""); // Clear updated title
+      setUpdatedContent(""); // Clear updated content
     } catch (error) {
-      console.error('Error updating SOP:', error);
+      console.error("Error updating SOP:", error);
       // Handle error state or display an error message
     }
   };
@@ -66,7 +71,7 @@ const ViewSOP = () => {
         await axios.delete(`${API_BASE_URL}/sops/delete/${sop._id}`);
         fetchSOPs(); // Refresh SOPs after deletion
       } catch (error) {
-        console.error('Error deleting SOP:', error);
+        console.error("Error deleting SOP:", error);
         // Handle error state or display an error message
       }
     }
@@ -94,7 +99,10 @@ const ViewSOP = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredSOPs.map((sop) => (
-          <div key={sop._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div
+            key={sop._id}
+            className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
             <svg
               className="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"
               aria-hidden="true"
@@ -104,10 +112,22 @@ const ViewSOP = () => {
             >
               <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z" />
             </svg>
-            <h5 className="mb-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{sop.title}</h5>
-            <p className="mb-1 text-gray-500 dark:text-gray-400">ID: {sop._id}</p>
-            <div className={`overflow-hidden transition-max-height ease-out duration-300 ${expandedSopId === sop._id ? 'max-h-full' : 'max-h-20'}`}>
-              <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{sop.content}</p>
+            <h5 className="mb-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              {sop.title}
+            </h5>
+            <p className="mb-1 text-gray-500 dark:text-gray-400">
+              ID: {sop._id}
+            </p>
+            <div
+              className={`overflow-hidden transition-max-height ease-out duration-300 ${
+                expandedSopId === sop._id ? "max-h-full" : "max-h-20"
+              }`}
+            >
+              <div className="mb-3 font-normal text-gray-500 dark:text-gray-400">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {sop.content}
+                </ReactMarkdown>
+              </div>
             </div>
             {updateSOP && updateSOP._id === sop._id && (
               <div className="mt-4">
@@ -129,7 +149,7 @@ const ViewSOP = () => {
                     onClick={handleUpdateSubmit}
                     className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
-                    Update
+                    Update SOP
                   </button>
                 </div>
               </div>
@@ -139,7 +159,7 @@ const ViewSOP = () => {
                 className="inline-flex font-medium items-center text-blue-600 hover:underline"
                 onClick={() => handleUpdateSOP(sop)}
               >
-                Update
+                Update SOP
               </button>
               <button
                 className="inline-flex font-medium items-center text-red-600 hover:underline"
@@ -152,9 +172,11 @@ const ViewSOP = () => {
               onClick={() => toggleExpand(sop._id)}
               className="inline-flex font-medium items-center text-blue-600 hover:underline mt-2"
             >
-              {expandedSopId === sop._id ? 'Read Less' : 'Read More'}
+              {expandedSopId === sop._id ? "Read Less" : "Read More"}
               <svg
-                className={`w-3 h-3 ms-2.5 rtl:rotate-[270deg] ${expandedSopId === sop._id ? 'transform rotate-180' : ''}`}
+                className={`w-3 h-3 ms-2.5 rtl:rotate-[270deg] ${
+                  expandedSopId === sop._id ? "transform rotate-180" : ""
+                }`}
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

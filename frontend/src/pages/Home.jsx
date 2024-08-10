@@ -29,7 +29,7 @@ const Home = () => {
     },
     {
       Icon: BrainCircuit,
-      name: "AI Suggestions",
+      name: "AI Assisted Gap Analysis",
       description: "Explore AI-powered suggestions for process improvement.",
       href: "/ai-suggestions",
       cta: "AI Suggestions",
@@ -41,13 +41,13 @@ const Home = () => {
     //   href: "/control-management",
     //   cta: "Control Management",
     // },
-    {
-      Icon: MagnifyingGlassIcon,
-      name: "Gap Analysis",
-      description: "Perform gap analysis to identify areas for improvement.",
-      href: "/gap-analysis",
-      cta: "Gap Analysis",
-    },
+    // {
+    //   Icon: MagnifyingGlassIcon,
+    //   name: "Gap Analysis",
+    //   description: "Perform gap analysis to identify areas for improvement.",
+    //   href: "/gap-analysis",
+    //   cta: "Gap Analysis",
+    // },
     {
       Icon: BellIcon,
       name: "Log Change",
@@ -55,13 +55,13 @@ const Home = () => {
       href: "/log-change",
       cta: "Log Change",
     },
-    {
-      Icon: CheckCircledIcon,
-      name: "Validate Compliance",
-      description: "Validate compliance with regulatory requirements.",
-      href: "/validate-compliance",
-      cta: "Validate Compliance",
-    },
+    // {
+    //   Icon: CheckCircledIcon,
+    //   name: "Validate Compliance",
+    //   description: "Validate compliance with regulatory requirements.",
+    //   href: "/validate-compliance",
+    //   cta: "Validate Compliance",
+    // },
   ];
 
   return (
