@@ -170,3 +170,27 @@ export const getSOPContentById = async(id) => {
 
     return sop.content;
 };
+
+// Update the quality score of an SOP
+export const updateQualityScore = async(id, qualityScore) => {
+    if (typeof qualityScore !== 'number' || qualityScore < 0 || qualityScore > 100) {
+        throw new Error('Invalid quality score. It should be a number between 0 and 100.');
+    }
+
+    try {
+        console.log('Updating quality score for SOP with ID:', id);
+        const sop = await SOP.findById(id);
+        if (!sop) {
+            throw new Error('SOP not found');
+        }
+
+        sop.qualityScore = qualityScore;
+        await sop.save();
+
+        console.log('Quality score updated successfully:', sop);
+        return sop;
+    } catch (err) {
+        console.error('Error updating quality score:', err);
+        throw new Error('Server Error');
+    }
+};

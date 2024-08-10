@@ -7,7 +7,8 @@ import {
     updateSOP,
     deleteSOP,
     getSOPChanges,
-    getAllChangeLogs // Import the new endpoint
+    getAllChangeLogs,
+    updateQualityScore // Import the new endpoint
 } from '../controllers/sopController.js';
 
 const router = express.Router();
@@ -20,5 +21,7 @@ router.delete('/delete/:id', deleteSOP);
 router.post('/log/:id', logChange);
 router.get('/change-logs/:id', getSOPChanges); // Existing endpoint for specific SOP
 router.get('/change-logs', getAllChangeLogs); // New endpoint for all SOPs
+router.put('/quality/:id', updateQualityScore); // New route for updating quality score
+
 
 export default router;

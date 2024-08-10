@@ -1,6 +1,6 @@
 import express from 'express';
 import { generateSuggestions, assessQualityWithOpenAI } from '../services/aiService.js';
-import { getSOPContentById } from '../controllers/sopController.js';
+import { getSOPContentById, updateQualityScore } from '../controllers/sopController.js';
 
 const router = express.Router();
 
@@ -19,9 +19,13 @@ router.get('/assess/:id', async(req, res) => {
     try {
         const sopContent = await getSOPContentById(id);
         const { analysis, qualityScore } = await assessQualityWithOpenAI(sopContent);
+
+        // Update the SOP with the new quality score
+        await updateQualityScore(id, qualityScore);
+
         res.json({ analysis, qualityScore });
     } catch (error) {
-        console.error(error);
+        console.error('Failed to assess SOP quality:', error.message);
         res.status(500).json({ error: 'Failed to assess SOP quality' });
     }
 });
