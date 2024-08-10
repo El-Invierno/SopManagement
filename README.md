@@ -2,6 +2,10 @@
 
 Welcome to the SOP Management System project! This project is designed to help organizations manage their Standard Operating Procedures (SOPs) efficiently. The system includes features for SOP quality assessment, compliance checking, collaborative editing, and more.
 
+## Contact Developers: [New Horizon College of Engineering, AIML Dept.]
+- Yash Tawde yashtawde9@gmail.com
+- Rahul Jauhari rj.rahul.jauhari@gmail.com
+
 ## Table of Contents
 
 - [Features](#features)
@@ -60,6 +64,8 @@ Welcome to the SOP Management System project! This project is designed to help o
    ```powershell
       MONGODB_URI=your_mongodb_uri # Add the connection string from MongoDB.
       OPENAI_API_KEY=your_openai_api_key # Get yourself an API key from OpenAI.
+      PORT=5000
+      JWT_SECRET=fcf1a6f95f12b2c7c7e6de816f2b58d2a0b1d15c4fbbd5b88ff1c2ef80bbbc70
    ```
 4.  Start the backend server:
 
@@ -275,86 +281,6 @@ Use the web interface to manage SOPs, assess quality, collaborate, and more.
     "createdAt": "2024-07-13T00:00:00.000Z"
   }
   ```
-
-### 10. Schedule Knowledge Session
-- Endpoint: `POST /api/knowledge-sessions/schedule`
-- Input:
-  ```json
-  {
-    "title": "Session Title",
-    "date": "2024-07-20",
-    "participants": ["Participant 1", "Participant 2"]
-  }
-  ```
-- Output:
-  ```json
-  {
-    "_id": "sessionId",
-    "title": "Session Title",
-    "date": "2024-07-20",
-    "participants": ["Participant 1", "Participant 2"],
-    "createdAt": "2024-07-13T00:00:00.000Z"
-  }
-  ```
-
-### 11. Create Macro
-- Endpoint: `POST /api/macros/create`
-- Input:
-  ```json
-  {
-    "name": "Macro Name",
-    "content": "Macro Content"
-  }
-  ```
-- Output:
-  ```json
-  {
-    "_id": "macroId",
-    "name": "Macro Name",
-    "content": "Macro Content",
-    "createdAt": "2024-07-13T00:00:00.000Z"
-  }
-  ```
-
-### 12. Create Alert
-- Endpoint: `POST /api/alerts/create`
-- Input:
-  ```json
-  {
-    "message": "Alert Message",
-    "sopId": "sopId"
-  }
-  ```
-- Output:
-  ```json
-  {
-    "_id": "alertId",
-    "message": "Alert Message",
-    "sopId": "sopId",
-    "createdAt": "2024-07-13T00:00:00.000Z"
-  }
-  ```
-
-### 13. Get All Alerts
-- Endpoint: `GET /api/alerts/all`
-- Output:
-  ```json
-  [
-    {
-      "_id": "alertId",
-      "message": "Alert Message",
-      "sopId": "sopId",
-      "createdAt": "2024-07-13T00:00:00.000Z"
-    },
-    {
-      "_id": "alertId2",
-      "message": "Another Alert Message",
-      "sopId": "sopId2",
-      "createdAt": "2024-07-13T00:00:00.000Z"
-    }
-  ]
-  ```
-
 
 ### License
 This project is licensed under the MIT License. See the LICENSE file for more details.
