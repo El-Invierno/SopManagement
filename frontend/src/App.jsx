@@ -4,10 +4,7 @@ import Home from './pages/Home';
 import SOPForm from './components/SOPForm';
 import AssessQuality from './components/AssessQuality';
 import AISuggestions from './components/AISuggestions';
-import ControlManagement from './components/ControlManagement';
-import GapAnalysis from './components/GapAnalysis';
 import LogChange from './components/LogChange';
-import ValidateCompliance from './components/ValidateCompliance';
 import ViewSOP from './components/ViewSOP'; // Import ViewSOP component
 
 const App = () => {
@@ -93,10 +90,7 @@ const App = () => {
           <Route path="/create-sop" element={<SOPForm />} />
           <Route path="/assess-quality" element={<AssessQuality />} />
           <Route path="/ai-suggestions" element={<AISuggestions />} />
-          {/* <Route path="/control-management" element={<ControlManagement />} /> */}
-          {/* <Route path="/gap-analysis" element={<GapAnalysis />} /> */}
           <Route path="/log-change" element={<LogChange />} />
-          {/* <Route path="/validate-compliance" element={<ValidateCompliance />} /> */}
           <Route path="/view-sops" element={<ViewSOP />} /> {/* New Route */}
         </Routes>
       </main>
