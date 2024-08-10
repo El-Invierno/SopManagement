@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { validateCompliance } from '../../api';
+// import { validateCompliance } from '../../api';
 
 const ValidateCompliance = () => {
   const [id, setId] = useState('');
   const [status, setStatus] = useState('');
 
   const handleValidate = async () => {
-    try {
-      const response = await validateCompliance(id);
-      setStatus(response.data.complianceStatus);
-    } catch (error) {
-      console.error(error);
-      alert('Failed to validate compliance');
-    }
+    // try {
+    //   const response = await validateCompliance(id);
+    //   setStatus(response.data.complianceStatus);
+    // } catch (error) {
+    //   console.error(error);
+    //   alert('Failed to validate compliance');
+    // }
   };
 
   return (

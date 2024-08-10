@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addControl, verifyControl } from '../../api';
+// import { addControl, verifyControl } from '../../api';
 
 const ControlManagement = () => {
   const [id, setId] = useState('');
@@ -7,23 +7,23 @@ const ControlManagement = () => {
   const [controlId, setControlId] = useState('');
 
   const handleAddControl = async () => {
-    try {
-      await addControl(id, { control });
-      alert('Control added successfully');
-    } catch (error) {
-      console.error(error);
-      alert('Failed to add control');
-    }
+    // try {
+    //   await addControl(id, { control });
+    //   alert('Control added successfully');
+    // } catch (error) {
+    //   console.error(error);
+    //   alert('Failed to add control');
+    // }
   };
 
   const handleVerifyControl = async () => {
-    try {
-      await verifyControl(id, controlId);
-      alert('Control verified successfully');
-    } catch (error) {
-      console.error(error);
-      alert('Failed to verify control');
-    }
+    // try {
+    //   await verifyControl(id, controlId);
+    //   alert('Control verified successfully');
+    // } catch (error) {
+    //   console.error(error);
+    //   alert('Failed to verify control');
+    // }
   };
 
   return (

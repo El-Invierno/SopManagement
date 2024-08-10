@@ -2,18 +2,6 @@ import SOP from '../models/SOP.js';
 import { diffLines } from 'diff';
 import mongoose from 'mongoose';
 
-// Generate random readability score
-const assessReadability = async(content) => {
-    try {
-        const score = Math.floor(Math.random() * 31); // Generates a random score between 0 and 30
-        console.log('Readability score:', score);
-        return score;
-    } catch (err) {
-        console.error('Error generating readability score:', err);
-        return 0; // Fallback score in case of error
-    }
-};
-
 // Get all SOPs
 export const getAllSOPs = async(req, res) => {
     try {
@@ -47,100 +35,8 @@ export const createSOP = async(req, res) => {
     }
 };
 
-// Assess the quality of an SOP
-export const assessQuality = async(req, res) => {
-    const { id } = req.params;
-    try {
-        console.log('Assessing quality of SOP with ID:', id);
-        const sop = await SOP.findById({ _id: id });
-        if (!sop) {
-            console.log('SOP not found:', id);
-            return res.status(404).json({ msg: 'SOP not found' });
-        }
 
-        // 1. Length of Content (10 points)
-        const lengthScore = assessLength(sop.content);
-        console.log('Length score:', lengthScore);
 
-        // 2. Presence of Key Sections (40 points)
-        const sectionsScore = assessSections(sop.content);
-        console.log('Sections score:', sectionsScore);
-
-        // 3. Readability Score (30 points)
-        const readabilityScore = await assessReadability(sop.content);
-        console.log('Readability score:', readabilityScore);
-
-        // 4. Keyword Density (20 points)
-        const keywordDensityScore = assessKeywordDensity(sop.content);
-        console.log('Keyword density score:', keywordDensityScore);
-
-        // Calculate total quality score
-        const qualityScore = lengthScore + sectionsScore + readabilityScore + keywordDensityScore;
-        sop.qualityScore = qualityScore;
-        await sop.save();
-        console.log('Total quality score:', qualityScore);
-
-        res.json(sop);
-    } catch (err) {
-        console.error('Error assessing quality of SOP:', err);
-        res.status(500).send('Server Error');
-    }
-};
-
-// Assess length of content
-const assessLength = (content) => {
-    const wordCount = content.split(' ').length;
-    console.log('Word count:', wordCount);
-    if (wordCount < 300) return 0; // Too short
-    if (wordCount > 3000) return 0; // Too long
-    return 10; // Perfect length
-};
-
-// Assess presence of key sections
-const assessSections = (content) => {
-    const requiredSections = ['Introduction', 'Procedure', 'Safety Measures'];
-    const sectionScores = requiredSections.map(section => content.includes(section) ? 1 : 0);
-    const score = (sectionScores.reduce((a, b) => a + b, 0) / requiredSections.length) * 40;
-    console.log('Section scores:', sectionScores, 'Total score:', score);
-    return score;
-};
-
-// Assess keyword density
-const assessKeywordDensity = (content) => {
-    const keywords = ['safety', 'procedure', 'compliance'];
-    const words = content.toLowerCase().split(' ');
-    const keywordCounts = keywords.map(keyword => words.filter(word => word === keyword).length);
-    const totalKeywords = keywordCounts.reduce((a, b) => a + b, 0);
-    const keywordDensity = (totalKeywords / words.length) * 100;
-    console.log('Keyword counts:', keywordCounts, 'Total keywords:', totalKeywords, 'Keyword density:', keywordDensity);
-
-    if (keywordDensity < 0.5) return 0; // Too few keywords
-    if (keywordDensity > 5) return 0; // Too many keywords
-    return 20; // Good keyword density
-};
-
-// Validate SOP compliance
-export const validateCompliance = async(req, res) => {
-    const { id } = req.params;
-    try {
-        console.log('Validating compliance for SOP with ID:', id);
-        const sop = await SOP.findById(id);
-        if (!sop) {
-            console.log('SOP not found:', id);
-            return res.status(404).json({ msg: 'SOP not found' });
-        }
-
-        // Dummy compliance validation logic
-        const isCompliant = sop.content.includes('compliance'); // Simple example logic
-        sop.complianceStatus = isCompliant ? 'Compliant' : 'Non-Compliant';
-        await sop.save();
-        console.log('Compliance status:', sop.complianceStatus);
-        res.json(sop);
-    } catch (err) {
-        console.error('Error validating compliance:', err);
-        res.status(500).send('Server Error');
-    }
-};
 
 // Log changes to an SOP
 export const logChange = async(req, res) => {
@@ -176,6 +72,7 @@ export const logChange = async(req, res) => {
     }
 };
 
+
 // Get SOP changes
 export const getSOPChanges = async(req, res) => {
     const { id } = req.params;
@@ -200,26 +97,7 @@ export const getSOPChanges = async(req, res) => {
     }
 };
 
-// Perform gap analysis on an SOP
-export const performGapAnalysis = async(req, res) => {
-    const { id } = req.params;
-    try {
-        console.log('Performing gap analysis for SOP with ID:', id);
-        const sop = await SOP.findById(id);
-        if (!sop) {
-            console.log('SOP not found:', id);
-            return res.status(404).json({ msg: 'SOP not found' });
-        }
 
-        // Dummy gap analysis logic
-        const gaps = ['Missing section on compliance', 'Outdated information in section 2'];
-        console.log('Gaps found:', gaps);
-        res.json({ gaps });
-    } catch (err) {
-        console.error('Error performing gap analysis:', err);
-        res.status(500).send('Server Error');
-    }
-};
 
 export const getAllChangeLogs = async(req, res) => {
     try {
@@ -279,52 +157,16 @@ export const deleteSOP = async(req, res) => {
     }
 };
 
-// Add a control to an SOP
-export const addControl = async(req, res) => {
-    const { id } = req.params;
-    const { control } = req.body;
-    try {
-        console.log('Adding control to SOP with ID:', id, 'Control:', control);
-        const sop = await SOP.findById(id);
-        if (!sop) {
-            console.log('SOP not found:', id);
-            return res.status(404).json({ msg: 'SOP not found' });
-        }
 
-        sop.controls.push({ control });
-        await sop.save();
-        console.log('Control added successfully:', sop);
-        res.json(sop);
-    } catch (err) {
-        console.error('Error adding control:', err);
-        res.status(500).send('Server Error');
+export const getSOPContentById = async(id) => {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error('Invalid SOP ID');
     }
-};
 
-// Verify a control in an SOP
-export const verifyControl = async(req, res) => {
-    const { id, controlId } = req.params;
-    try {
-        console.log('Verifying control for SOP with ID:', id, 'Control ID:', controlId);
-        const sop = await SOP.findById(id);
-        if (!sop) {
-            console.log('SOP not found:', id);
-            return res.status(404).json({ msg: 'SOP not found' });
-        }
-
-        const control = sop.controls.id(controlId);
-        if (!control) {
-            console.log('Control not found:', controlId);
-            return res.status(404).json({ msg: 'Control not found' });
-        }
-
-        control.status = 'Verified';
-        control.verifiedAt = Date.now();
-        await sop.save();
-        console.log('Control verified successfully:', sop);
-        res.json(sop);
-    } catch (err) {
-        console.error('Error verifying control:', err);
-        res.status(500).send('Server Error');
+    const sop = await SOP.findById(id);
+    if (!sop) {
+        throw new Error('SOP not found');
     }
+
+    return sop.content;
 };
