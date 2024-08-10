@@ -186,7 +186,7 @@ const ViewSOP = () => {
                 className="inline-flex font-medium items-center text-blue-600 hover:underline"
                 onClick={() => handleUpdateSOP(sop)}
               >
-                Update SOP
+                DE Suggestion
               </button>
               <button
                 className="inline-flex font-medium items-center text-red-600 hover:underline"
