@@ -1,24 +1,29 @@
 import * as React from 'react';
-import { TextField, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { getChangeLogs, getAllChangeLogs } from '../../api';
 
 const LogChange = () => {
   const [changeLogs, setChangeLogs] = React.useState([]);
-  const [sopId, setSopId] = React.useState('');
   const [error, setError] = React.useState(null);
   const [expandedLogIds, setExpandedLogIds] = React.useState(new Set());
 
   React.useEffect(() => {
     const fetchChangeLogs = async () => {
       try {
-        const response = sopId 
-          ? await getChangeLogs(sopId) 
-          : await getAllChangeLogs();
+        const response = await getAllChangeLogs();
 
         console.log('API response:', response.data);
 
         if (response.data && Array.isArray(response.data)) {
-          setChangeLogs(response.data.sort((a, b) => new Date(b.changedAt) - new Date(a.changedAt)));
+          // Sort logs by date and remove duplicates based on the change description
+          const uniqueLogs = response.data.reduce((acc, log) => {
+            if (!acc.some(existingLog => existingLog.change === log.change)) {
+              acc.push(log);
+            }
+            return acc;
+          }, []).sort((a, b) => new Date(b.changedAt) - new Date(a.changedAt));
+
+          setChangeLogs(uniqueLogs);
         } else {
           setChangeLogs([]);
         }
@@ -30,11 +35,7 @@ const LogChange = () => {
     };
 
     fetchChangeLogs();
-  }, [sopId]);
-
-  const handleSopIdChange = (event) => {
-    setSopId(event.target.value);
-  };
+  }, []);
 
   const handleToggleExpand = (logId) => {
     setExpandedLogIds(prev => {
@@ -61,19 +62,6 @@ const LogChange = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
-      <TextField
-        label="SOP ID"
-        variant="outlined"
-        value={sopId}
-        onChange={handleSopIdChange}
-        fullWidth
-        margin="normal"
-      />
-      {sopId && (
-        <Typography variant="h6" className="mb-4">
-          Viewing logs for SOP ID: {sopId}
-        </Typography>
-      )}
       {error ? (
         <Typography variant="body1" color="error">
           {error}
@@ -88,7 +76,7 @@ const LogChange = () => {
                 </svg>
               </span>
               <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
-                {getChangeType(log)} to SOP ID: {sopId}
+                {getChangeType(log)}
                 <span className={`bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300`}>
                   {getChangeType(log)}
                 </span>
