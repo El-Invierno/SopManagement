@@ -119,12 +119,15 @@ export const getAllChangeLogs = async(req, res) => {
 };
 
 // Update an existing SOP
+// Update an existing SOP
 export const updateSOP = async(req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
+    
     try {
         console.log('Updating SOP with ID:', id);
         const updatedSOP = await SOP.findById(id);
+        
         if (!updatedSOP) {
             return res.status(404).json({ msg: 'SOP not found' });
         }
@@ -133,8 +136,11 @@ export const updateSOP = async(req, res) => {
         updatedSOP.changeLogs.push({
             change: `Updated SOP. Old Content: ${updatedSOP.content}, New Content: ${content}`,
         });
-        updatedSOP.title = title;
+
+        // Update the SOP with new content
+        updatedSOP.title = title || updatedSOP.title; // Keep old title if not provided
         updatedSOP.content = content;
+
         await updatedSOP.save();
 
         console.log('SOP updated successfully:', updatedSOP);
@@ -144,6 +150,7 @@ export const updateSOP = async(req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
 
 // Delete an existing SOP and log the deletion
 export const deleteSOP = async(req, res) => {

@@ -15,6 +15,20 @@ router.post('/suggestions', async(req, res) => {
     }
 });
 
+router.get('/suggestions/:id', async(req, res) => {
+    const { id } = req.params;
+    try {
+        // Fetch the SOP content by ID
+        const content = await getSOPContentById(id);
+
+        // Generate suggestions based on the fetched content
+        const suggestions = await generateSuggestions(content);
+        res.json(suggestions); // Ensure that 'suggestions' is sent as a JSON object
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.get('/assess/:id', async(req, res) => {
     const { id } = req.params;
     try {

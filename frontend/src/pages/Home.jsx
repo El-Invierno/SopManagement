@@ -67,9 +67,9 @@ const Home = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-8 rounded-2xl">
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          <WordFadeIn delay={0.0} words="Welcome to the SOP Management System" />
-        </h2>
+        {/* <h2 className="text-3xl font-bold mb-6 text-center">
+          <WordFadeIn delay={0.0} words="SOP Management System" />
+        </h2> */}
         <div className="flex flex-wrap justify-center gap-4">
           {features.map((feature, index) => (
             <BentoCard key={index} {...feature} className="w-full sm:w-1/2 lg:w-1/3" />
