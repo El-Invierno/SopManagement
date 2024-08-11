@@ -139,7 +139,7 @@ const ViewSOP = () => {
                 {sop.title}
               </h5>
             </div>
-            <div className="w-1/3 ml-4">
+            <div className="w-full ml-4">
               <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2.5">
                 <div
                   className={`h-2.5 rounded-full ${getProgressColor(sop.qualityScore)}`}
