@@ -3,6 +3,8 @@ import { BentoCard } from '@/components/magicui/bento-grid';
 import { FileTextIcon, InputIcon, GlobeIcon, CalendarIcon, BellIcon, MagnifyingGlassIcon, CheckCircledIcon, ViewGridIcon, ViewHorizontalIcon,  } from '@radix-ui/react-icons';
 import WordFadeIn from "@/components/magicui/word-fade-in";
 import { BrainCircuit } from 'lucide-react';
+import { TimerIcon } from '@radix-ui/react-icons';
+
 
 const Home = () => {
   const features = [
@@ -62,6 +64,14 @@ const Home = () => {
     //   href: "/validate-compliance",
     //   cta: "Validate Compliance",
     // },
+    {
+      Icon: TimerIcon, // Replace with the appropriate icon import
+      name: "Elapsed SOP",
+      description: "Track and manage the elapsed time for each SOP.",
+      href: "/elapsed-sop",
+      cta: "Track Timers",
+    },
+    
   ];
 
   return (

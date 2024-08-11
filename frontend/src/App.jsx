@@ -5,7 +5,8 @@ import SOPForm from './components/SOPForm';
 import AssessQuality from './components/AssessQuality';
 import AISuggestions from './components/AISuggestions';
 import LogChange from './components/LogChange';
-import ViewSOP from './components/ViewSOP'; // Import ViewSOP component
+import ViewSOP from './components/ViewSOP';
+import ElapsedSOP from './components/ElapsedSOP'; // Import ElapsedSOP component
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,14 +18,12 @@ const App = () => {
   return (
     <Router>
       <div className="bg-gray-50 dark:bg-gray-800">
-        {/* Navbar */}
         <nav className="border-b border-gray-200 dark:border-gray-700">
           <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between py-4">
             <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
               <img src="../public/logo.jpg" alt="Logo" className="h-8" />
               <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">SOP Management</span>
             </Link>
-            {/* Hamburger Menu Button (only visible on smaller screens) */}
             <button
               type="button"
               onClick={toggleMenu}
@@ -37,24 +36,20 @@ const App = () => {
                 <path className="stroke-current" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            {/* Tabs (visible on larger screens) */}
             <div className="hidden md:flex space-x-6">
-              <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link> {/* New Link */}
+              <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link>
               <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
               <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
               <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggest/Gap Analysis</Link>
-              {/* <Link to="/control-management" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Control Management</Link> */}
-              {/* <Link to="/gap-analysis" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Gap Analysis</Link> */}
               <Link to="/log-change" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Log Change</Link>
-              {/* <Link to="/validate-compliance" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Validate Compliance</Link> */}
+              <Link to="/elapsed-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Elapsed SOP</Link> {/* New Link */}
             </div>
           </div>
         </nav>
-        {/* Hamburger Menu (Tabs) */}
         <div className={`bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 ${menuOpen ? 'block' : 'hidden'} md:hidden`} id="navbar-hamburger">
           <ul className="flex flex-col">
             <li>
-              <Link to="/view-sops" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>View SOPs</Link> {/* New Link */}
+              <Link to="/view-sops" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>View SOPs</Link>
             </li>
             <li>
               <Link to="/" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu} aria-current="page">Home</Link>
@@ -68,22 +63,15 @@ const App = () => {
             <li>
               <Link to="/ai-suggestions" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>AI Suggest/Gap Analysis</Link>
             </li>
-            {/* <li>
-              <Link to="/control-management" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Control Management</Link>
-            </li> */}
-            {/* <li>
-              <Link to="/gap-analysis" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Gap Analysis</Link>
-            </li> */}
             <li>
               <Link to="/log-change" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Log Change</Link>
             </li>
             <li>
-              {/* <Link to="/validate-compliance" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Validate Compliance</Link> */}
+              <Link to="/elapsed-sop" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>Elapsed SOP</Link> {/* New Link */}
             </li>
           </ul>
         </div>
       </div>
-      {/* Main Content */}
       <main className="max-w-screen-xl mx-auto p-4">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -91,7 +79,8 @@ const App = () => {
           <Route path="/assess-quality" element={<AssessQuality />} />
           <Route path="/ai-suggestions" element={<AISuggestions />} />
           <Route path="/log-change" element={<LogChange />} />
-          <Route path="/view-sops" element={<ViewSOP />} /> {/* New Route */}
+          <Route path="/view-sops" element={<ViewSOP />} />
+          <Route path="/elapsed-sop" element={<ElapsedSOP />} /> {/* New Route */}
         </Routes>
       </main>
     </Router>
