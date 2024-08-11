@@ -145,7 +145,7 @@ export const updateSOP = async(req, res) => {
     }
 };
 
-// Delete an existing SOP
+// Delete an existing SOP and log the deletion
 export const deleteSOP = async(req, res) => {
     const { id } = req.params;
     try {
@@ -155,6 +155,18 @@ export const deleteSOP = async(req, res) => {
             console.log('SOP not found:', id);
             return res.status(404).json({ msg: 'SOP not found' });
         }
+
+        // Log the deletion
+        await SOP.updateMany({}, { 
+            $push: {
+                changeLogs: {
+                    change: `- Deleted SOP with title: ${deletedSOP.title}`,
+                    changedAt: new Date(),
+                    changedBy: req.user ? req.user.id : 'unknown'  // Example: log the user ID if available
+                }
+            }
+        });
+
         console.log('SOP deleted successfully:', deletedSOP);
         res.json({ msg: 'SOP deleted' });
     } catch (err) {

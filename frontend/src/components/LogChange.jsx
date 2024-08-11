@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextField, Typography } from '@mui/material';
-import { getChangeLogs, getAllChangeLogs } from '../../api'; // Ensure this path is correct
+import { getChangeLogs, getAllChangeLogs } from '../../api';
 
 const LogChange = () => {
   const [changeLogs, setChangeLogs] = React.useState([]);
@@ -13,12 +13,11 @@ const LogChange = () => {
       try {
         const response = sopId 
           ? await getChangeLogs(sopId) 
-          : await getAllChangeLogs(); // Fetch from all SOPs if sopId is empty
+          : await getAllChangeLogs();
 
-        console.log('API response:', response.data); // Log API response for debugging
+        console.log('API response:', response.data);
 
         if (response.data && Array.isArray(response.data)) {
-          // Sort logs in reverse chronological order
           setChangeLogs(response.data.sort((a, b) => new Date(b.changedAt) - new Date(a.changedAt)));
         } else {
           setChangeLogs([]);
@@ -49,6 +48,17 @@ const LogChange = () => {
     });
   };
 
+  const getChangeType = (log) => {
+    if (log.change.includes('Created SOP')) {
+      return 'New';
+    } else if (log.change.includes('Updated SOP')) {
+      return 'Edited';
+    } else if (log.change.includes('Deleted SOP')) {
+      return 'Deleted';
+    }
+    return 'Unknown';  // Fallback, if the log doesn't match any of the above.
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
       <TextField
@@ -59,6 +69,11 @@ const LogChange = () => {
         fullWidth
         margin="normal"
       />
+      {sopId && (
+        <Typography variant="h6" className="mb-4">
+          Viewing logs for SOP ID: {sopId}
+        </Typography>
+      )}
       {error ? (
         <Typography variant="body1" color="error">
           {error}
@@ -73,9 +88,9 @@ const LogChange = () => {
                 </svg>
               </span>
               <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
-                {log.change.startsWith('+') ? `Added to SOP ID: ${sopId}` : `SOP ID: ${sopId}`}
-                <span className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                  {index === changeLogs.length - 1 ? 'New' : 'Edited'}
+                {getChangeType(log)} to SOP ID: {sopId}
+                <span className={`bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300`}>
+                  {getChangeType(log)}
                 </span>
               </h3>
               <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
@@ -93,15 +108,6 @@ const LogChange = () => {
                   <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
                 </svg>
               </button>
-              {log.change.startsWith('+') && (
-                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mt-2">
-                  <svg className="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
-                    <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-                  </svg>
-
-                </a>
-              )}
             </li>
           ))}
         </ol>

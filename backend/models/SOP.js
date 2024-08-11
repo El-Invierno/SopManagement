@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-const ChangeLogSchema = new mongoose.Schema({
-  change: String,
+const changeLogSchema = new mongoose.Schema({
+  change: { type: String, required: true },
   changedAt: { type: Date, default: Date.now },
+  changedBy: { type: String, default: 'unknown' }
 });
-
 const ControlSchema = new mongoose.Schema({
   control: String,
   status: { type: String, default: 'Not Verified' },
@@ -16,7 +16,7 @@ const SOPSchema = new mongoose.Schema({
   content: { type: String, required: true },
   qualityScore: { type: Number, default: 0 },
   complianceStatus: { type: String, default: 'Not Checked' },
-  changeLogs: [ChangeLogSchema],
+  changeLogs: [changeLogSchema],
   controls: [ControlSchema],
   createdAt: { type: Date, default: Date.now },
 });

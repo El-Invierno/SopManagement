@@ -6,20 +6,23 @@ const openai = new OpenAI({
 });
 
 // Function to generate suggestions for improving SOP content
+// Function to generate suggestions for improving SOP content
 export async function generateSuggestions(sopContent) {
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                { "role": 'system', "content": 'You are an AI that provides suggestions for improving SOPs.' },
-                { "role": 'user', "content": `Suggest improvements for the following SOP:\n${sopContent}` },
+                { "role": 'system', "content": 'You are an AI assistant that provides clear and direct answers based on the input provided. Give the output a nice formating(mandatory)' },
+                { "role": 'user', "content": `Given the following SOP content, generate the most appropriate Standard Operating Procedure that could form out of the given input. Don't mention the title:\n${sopContent}` },
             ],
-            max_tokens: 150,
+            max_tokens: 500,
         });
 
-        return response.choices[0].message.content;
+        // Return JSON object with key 'suggestions'
+        return { suggestions: response.choices[0].message.content.trim() };
     } catch (error) {
-        handleOpenAIError(error);
+        console.error('Error generating suggestions:', error);
+        throw error;
     }
 }
 
@@ -27,15 +30,15 @@ export async function generateSuggestions(sopContent) {
 export const assessQualityWithOpenAI = async(content) => {
     try {
         const prompt = `
-          Analyze the following SOP content based on the following criteria:
-          - Length of Content
+          Analyze the following SOP content based on Banking and Investment parameters on each of the following criteria:
+          - Length of Content [Real SOP content is ranging from 500 words onwards].
           - Punctuation Usage
           - Language Understanding
           - Lucidity & Clarity
-          - Crispness
           - Context Maintenance
           
-          Provide a score out of 100 and a brief explanation for each criterion.
+          Provide a score out of 100 and a brief explanation for each criterion (Mandatory explanation for all criteria). Judge strictly.
+          Give the complete breakdown of the score. There should be no doubts.
           
           SOP Content:
           "${content}"
@@ -47,7 +50,7 @@ export const assessQualityWithOpenAI = async(content) => {
                 { "role": 'system', "content": 'You are an AI that assesses the quality of SOPs out of 100. Give Total Score:' },
                 { "role": 'user', "content": prompt },
             ],
-            max_tokens: 150,
+            max_tokens: 500,
         });
 
         const analysis = response.choices[0].message.content.trim();

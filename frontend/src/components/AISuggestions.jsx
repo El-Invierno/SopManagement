@@ -10,11 +10,19 @@ const AISuggestions = () => {
   const handleGenerateSuggestions = async () => {
     try {
       const response = await getAISuggestions(content);
-      setSuggestions(response.data.suggestions);
+      setSuggestions(response.data.suggestions); // Access the suggestions correctly
     } catch (error) {
       console.error(error);
       alert('Failed to generate AI suggestions');
     }
+  };
+
+  const handleCopySuggestions = () => {
+    navigator.clipboard.writeText(suggestions).then(() => {
+      alert('Suggestions copied to clipboard');
+    }).catch((err) => {
+      console.error('Failed to copy suggestions: ', err);
+    });
   };
 
   return (
@@ -51,8 +59,15 @@ const AISuggestions = () => {
           <div className="mt-4 bg-gray-100 p-4 rounded-md">
             <h3 className="text-lg font-semibold mb-2">Generated Suggestions:</h3>
             <div className="overflow-auto max-h-60">
-              <ReactMarkdown>{suggestions.content}</ReactMarkdown>
+              {/* Ensure proper rendering of Markdown content */}
+              <ReactMarkdown>{suggestions}</ReactMarkdown>
             </div>
+            <button
+              className="mt-4 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+              onClick={handleCopySuggestions}
+            >
+              Copy Generated Suggestions
+            </button>
           </div>
         )}
       </div>
