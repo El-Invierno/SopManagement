@@ -21,7 +21,7 @@ const App = () => {
         <nav className="border-b border-gray-200 dark:border-gray-700">
           <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between py-4">
             <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="../public/logo.jpg" alt="Logo" className="h-8" />
+              <img src="https://github.com/El-Invierno/SopManagement/blob/main/frontend/public/logo.jpg?raw=true" alt="Logo" className="h-8" />
               <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">SOP Management</span>
             </Link>
             <button
