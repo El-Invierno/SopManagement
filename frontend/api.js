@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BASE_URL, LOCAL_BASE_URL } from "./constants.js";
 
-const API = axios.create({ baseURL: 'https://sopmanagement.onrender.com/api' });
+const API = axios.create({ baseURL: BASE_URL });
 
 // SOP APIs
 export const createSOP = (sopData) => API.post('/sops/create', sopData);

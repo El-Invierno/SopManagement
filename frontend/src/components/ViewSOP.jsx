@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support
+import { BASE_URL,LOCAL_BASE_URL } from "../../constants.js";
 
-const API_BASE_URL = "https://sopmanagement.onrender.com/api"; // Update with your API base URL
+const API_BASE_URL = BASE_URL;
 
 const ViewSOP = () => {
   const [sops, setSOPs] = useState([]);

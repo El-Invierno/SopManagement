@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL,LOCAL_BASE_URL } from "../../constants.js";
 
-const API_BASE_URL = "https://sopmanagement.onrender.com/api";
+const API_BASE_URL = BASE_URL;
 
 const ElapsedSOP = () => {
   const [sops, setSOPs] = useState([]);
