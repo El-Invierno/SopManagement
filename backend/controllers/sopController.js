@@ -19,27 +19,25 @@ export const getAllSOPs = async(req, res) => {
 
 // Create a new SOP
 export const createSOP = async(req, res) => {
-    const { title, content } = req.body;
+    const { title, content, expectedTimeOfCompletion } = req.body;
     try {
-        console.log('Creating new SOP with title:', title);
-        const newSOP = new SOP({ title, content });
-        await newSOP.save();
-
-        // Assess the quality score for the newly created SOP
-        const { analysis, qualityScore } = await assessQualityWithOpenAI(content);
-
-        // Update the SOP with the quality score and analysis
-        newSOP.qualityScore = qualityScore;
-        newSOP.changeLogs.push({ change: `Created SOP with title: ${title}. Quality Score: ${qualityScore}.` });
-        await newSOP.save();
-
-        console.log('New SOP created and assessed:', newSOP);
-        res.json(newSOP);
+      console.log('Creating new SOP with title:', title);
+      
+      const newSOP = new SOP({ 
+        title, 
+        content, 
+        expectedTimeOfCompletion // Ensure this is passed correctly
+      });
+      
+      await newSOP.save();
+      
+      res.json(newSOP);
     } catch (err) {
-        console.error('Error creating SOP:', err);
-        res.status(500).send('Server Error');
+      console.error('Error creating SOP:', err);
+      res.status(500).send('Server Error');
     }
-};
+  };
+  
 
 
 
@@ -118,11 +116,11 @@ export const getAllChangeLogs = async(req, res) => {
     }
 };
 
+
 // Update an existing SOP
-// Update an existing SOP
-export const updateSOP = async(req, res) => {
+export const updateSOP = async (req, res) => {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { title, content, elapsedTime, timerStatus } = req.body;
     
     try {
         console.log('Updating SOP with ID:', id);
@@ -137,9 +135,11 @@ export const updateSOP = async(req, res) => {
             change: `Updated SOP. Old Content: ${updatedSOP.content}, New Content: ${content}`,
         });
 
-        // Update the SOP with new content
-        updatedSOP.title = title || updatedSOP.title; // Keep old title if not provided
-        updatedSOP.content = content;
+        // Update the SOP with new data
+        if (title) updatedSOP.title = title; // Update title if provided
+        if (content) updatedSOP.content = content; // Update content if provided
+        if (elapsedTime !== undefined) updatedSOP.elapsedTime = elapsedTime; // Update elapsed time if provided
+        if (timerStatus) updatedSOP.timerStatus = timerStatus; // Update timer status if provided
 
         await updatedSOP.save();
 

@@ -15,10 +15,22 @@ const SOPSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   qualityScore: { type: Number, default: 0 },
-  complianceStatus: { type: String, default: 'Not Checked' },
   changeLogs: [changeLogSchema],
   controls: [ControlSchema],
   createdAt: { type: Date, default: Date.now },
+  elapsedTime: {
+    type: Number,
+    default: 0, // Initialize elapsedTime to 0
+  },
+  expectedTimeOfCompletion: {
+    type: Number,
+    required: true, // Ensure expectedTimeOfCompletion is provided
+  },
+  timerStatus: {
+    type: String,
+    enum: ['stopped', 'running', 'paused'],
+    default: 'stopped',
+  },
 });
 
 const SOP = mongoose.model('SOP', SOPSchema);

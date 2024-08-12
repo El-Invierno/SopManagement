@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { createSOP } from '../../api';
 
-
 const SOPForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [expectedTimeOfCompletion, setExpectedTimeOfCompletion] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newSOP = { title, content };
+      const newSOP = { 
+        title, 
+        content, 
+        expectedTimeOfCompletion: parseInt(expectedTimeOfCompletion, 10) 
+      };
       await createSOP(newSOP);
       alert('SOP Created Successfully');
       setTitle('');
       setContent('');
+      setExpectedTimeOfCompletion(''); // Clear the form field
     } catch (error) {
       console.error(error);
       alert('Failed to create SOP');
@@ -46,6 +51,18 @@ const SOPForm = () => {
             placeholder="Enter SOP content"
             required
           ></textarea>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="expectedTimeOfCompletion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Time of Completion (in minutes):</label>
+          <input
+            type="number"
+            id="expectedTimeOfCompletion"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            value={expectedTimeOfCompletion}
+            onChange={(e) => setExpectedTimeOfCompletion(e.target.value)}
+            placeholder="Enter expected time in minutes"
+            required
+          />
         </div>
         <button
           type="submit"
