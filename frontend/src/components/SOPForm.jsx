@@ -63,7 +63,7 @@ const SOPForm = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label htmlFor="expectedTimeOfCompletion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Time of Completion (in minutes):</label>
+          <label htmlFor="expectedTimeOfCompletion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expected Time of Completion (in seconds):</label>
           <input
             type="number"
             id="expectedTimeOfCompletion"
