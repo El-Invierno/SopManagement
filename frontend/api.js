@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000/api' });
+const API = axios.create({ baseURL: 'https://sopmanagement.onrender.com/api' });
 
 // SOP APIs
 export const createSOP = (sopData) => API.post('/sops/create', sopData);
@@ -14,4 +14,3 @@ export const updateSOPContent = (id, data) => API.put(`/sops/update/${id}`, data
 // AI APIs
 export const getAISuggestions = (id) => API.get(`/ai/suggestions/${id}`);
 export const getAssessQuality = (id) => API.get(`/ai/assess/${id}`);
-
