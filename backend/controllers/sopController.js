@@ -18,19 +18,26 @@ export const getAllSOPs = async(req, res) => {
 };
 
 // Create a new SOP
-export const createSOP = async(req, res) => {
+export const createSOP = async (req, res) => {
     const { title, content, expectedTimeOfCompletion } = req.body;
+  
     try {
       console.log('Creating new SOP with title:', title);
-      
-      const newSOP = new SOP({ 
-        title, 
-        content, 
-        expectedTimeOfCompletion // Ensure this is passed correctly
+  
+      const newSOP = new SOP({
+        title,
+        content,
+        expectedTimeOfCompletion,
+        changeLogs: [{
+          change: `Created SOP with title: ${title}`,
+          changedAt: new Date(),
+          changedBy: req.user ? req.user.id : 'unknown'  // Log the user ID if available
+        }]
       });
-      
+  
       await newSOP.save();
-      
+  
+      console.log('SOP created successfully:', newSOP);
       res.json(newSOP);
     } catch (err) {
       console.error('Error creating SOP:', err);

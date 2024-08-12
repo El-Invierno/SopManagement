@@ -103,6 +103,7 @@ const ElapsedSOP = () => {
               {sop.title}
             </h5>
             <p className="text-gray-500 dark:text-gray-400">ID: {sop._id}</p>
+            <p className="text-gray-500 dark:text-gray-400">Expected Time: {formatTime(sop.expectedTimeOfCompletion)}</p>
             <p className="text-gray-500 dark:text-gray-400">Elapsed Time: {formatTime(sop.elapsedTime)}</p>
             <div className="flex space-x-2 mt-4">
               {sop.timerStatus !== 'running' ? (

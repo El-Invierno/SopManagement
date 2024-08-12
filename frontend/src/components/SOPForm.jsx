@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createSOP } from '../../api';
 
 const SOPForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [expectedTimeOfCompletion, setExpectedTimeOfCompletion] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    // Check if all fields are filled out
+    if (title && content && expectedTimeOfCompletion) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [title, content, expectedTimeOfCompletion]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,7 +76,10 @@ const SOPForm = () => {
         </div>
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+            isFormValid ? '' : 'opacity-50 cursor-not-allowed'
+          }`}
+          disabled={!isFormValid} // Disable the button if the form is not valid
         >
           Create SOP
         </button>
