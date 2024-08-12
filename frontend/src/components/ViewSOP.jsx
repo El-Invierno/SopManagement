@@ -12,9 +12,16 @@ const ViewSOP = () => {
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedContent, setUpdatedContent] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isAutoCheckEnabled, setIsAutoCheckEnabled] = useState(false);
 
   useEffect(() => {
     fetchSOPs();
+    
+    // Load the checkbox state from localStorage
+    const savedAutoCheckState = localStorage.getItem('isAutoCheckEnabled');
+    if (savedAutoCheckState !== null) {
+      setIsAutoCheckEnabled(JSON.parse(savedAutoCheckState));
+    }
   }, []);
 
   const fetchSOPs = async () => {
@@ -106,9 +113,31 @@ const ViewSOP = () => {
     sop.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleToggleChange = () => {
+    const newState = !isAutoCheckEnabled;
+    console.log(newState);
+    setIsAutoCheckEnabled(newState);
+    // Save the new state to localStorage
+    localStorage.setItem('isAutoCheckEnabled', JSON.stringify(newState));
+  };
+
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">All SOPs</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-semibold">All SOPs</h1>
+        <div className="flex items-center">
+          <label htmlFor="autoCheck" className="mr-2 text-sm font-medium text-gray-900 dark:text-white">
+            Enable Quality Check
+          </label>
+          <input 
+            id="autoCheck" 
+            type="checkbox" 
+            className="toggle-checkbox"
+            checked={isAutoCheckEnabled}
+            onChange={handleToggleChange}
+          />
+        </div>
+      </div>
       <div className="mb-4">
         <input
           type="text"

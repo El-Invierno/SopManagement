@@ -11,7 +11,6 @@ export const getAllChangeLogs = () => API.get('/sops/change-logs');
 export const getQualityScoreById = (id) => API.get(`/sops/${id}/quality`); // New endpoint for quality score
 
 // AI APIs
-// AI APIs
 export const getAISuggestions = (id) => API.get(`/ai/suggestions/${id}`);
 export const getAssessQuality = (id) => API.get(`/ai/assess/${id}`);
 export const updateSOPContent = (id, data) => API.put(`/sops/update/${id}`, data);
