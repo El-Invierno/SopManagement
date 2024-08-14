@@ -66,8 +66,8 @@ const Home = () => {
     // },
     {
       Icon: TimerIcon, // Replace with the appropriate icon import
-      name: "Elapsed SOP",
-      description: "Track and manage the elapsed time for each SOP.",
+      name: "Control Capture",
+      description: "Micro-manage the elapsed time & checklist for each SOP.",
       href: "/elapsed-sop",
       cta: "Track Timers",
     },

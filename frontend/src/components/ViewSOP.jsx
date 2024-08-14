@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support
 
-const API_BASE_URL = "https://sopmanagement.onrender.com/api"; // Update with your API base URL
+const API_BASE_URL = "http://localhost:5000/api"; // Update with your API base URL
 
 const ViewSOP = () => {
   const [sops, setSOPs] = useState([]);
@@ -127,7 +127,7 @@ const ViewSOP = () => {
         <h1 className="text-2xl font-semibold">All SOPs</h1>
         <div className="flex items-center">
           <label htmlFor="autoCheck" className="mr-2 text-sm font-medium text-gray-900 dark:text-white">
-            Enable Quality Check
+            Auto Assess/Update
           </label>
           <input 
             id="autoCheck" 

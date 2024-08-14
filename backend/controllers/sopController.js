@@ -2,6 +2,7 @@ import SOP from '../models/SOP.js';
 import { diffLines } from 'diff';
 import mongoose from 'mongoose';
 import { assessQualityWithOpenAI } from '../services/aiService.js';
+import Notification from '../models/Notification.js';
 
 
 // Get all SOPs
@@ -36,7 +37,14 @@ export const createSOP = async (req, res) => {
       });
   
       await newSOP.save();
-  
+
+      // Create notification
+        const notification = new Notification({
+        message: `SOP "${title}" created.`,
+        sopId: newSOP._id,
+        type: 'Created',
+      });
+        await notification.save();
       console.log('SOP created successfully:', newSOP);
       res.json(newSOP);
     } catch (err) {
@@ -125,6 +133,7 @@ export const getAllChangeLogs = async(req, res) => {
 
 
 // Update an existing SOP
+// Update an existing SOP
 export const updateSOP = async (req, res) => {
     const { id } = req.params;
     const { title, content, elapsedTime, timerStatus } = req.body;
@@ -146,9 +155,17 @@ export const updateSOP = async (req, res) => {
         if (title) updatedSOP.title = title; // Update title if provided
         if (content) updatedSOP.content = content; // Update content if provided
         if (elapsedTime !== undefined) updatedSOP.elapsedTime = elapsedTime; // Update elapsed time if provided
-        if (timerStatus) updatedSOP.timerStatus = timerStatus; // Update timer status if provided
+        if (timerStatus !== undefined) updatedSOP.timerStatus = timerStatus; // Update timer status if provided
 
         await updatedSOP.save();
+
+        // Create notification
+        const notification = new Notification({
+            message: `SOP "${updatedSOP.title}" updated.`,
+            sopId: updatedSOP._id,
+            type: 'Updated',
+        });
+        await notification.save();
 
         console.log('SOP updated successfully:', updatedSOP);
         res.json(updatedSOP);
@@ -157,6 +174,7 @@ export const updateSOP = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
 
 
 // Delete an existing SOP and log the deletion
@@ -180,6 +198,14 @@ export const deleteSOP = async(req, res) => {
                 }
             }
         });
+
+        // Create a notification for the deletion
+        const notification = new Notification({
+            message: `Deleted SOP: ${deletedSOP.title}`,
+            sopId: deletedSOP._id,
+            type: 'Deleted',
+        });
+        await notification.save();
 
         console.log('SOP deleted successfully:', deletedSOP);
         res.json({ msg: 'SOP deleted' });
@@ -288,3 +314,5 @@ export const assessQuality = async(req, res) => {
         res.status(500).json({ error: 'Failed to assess SOP quality' });
     }
 };
+
+

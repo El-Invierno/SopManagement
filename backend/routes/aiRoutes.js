@@ -1,6 +1,7 @@
 import express from 'express';
 import { generateSuggestions, assessQualityWithOpenAI } from '../services/aiService.js';
 import { getSOPContentById, updateQualityScore } from '../controllers/sopController.js';
+import {generateChecklistItems} from '../services/aiService.js';
 
 const router = express.Router();
 
@@ -44,5 +45,18 @@ router.get('/assess/:id', async(req, res) => {
         res.status(500).json({ error: 'Failed to assess SOP quality' });
     }
 });
+
+
+router.get('/checklist/:id', async(req, res) => {
+    const { id } = req.params;
+    try {
+        const content = await getSOPContentById(id);
+        const checklist = await generateChecklistItems(content); // Generate checklist based on content
+        res.json(checklist);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 export default router;

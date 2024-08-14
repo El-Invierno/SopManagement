@@ -37,8 +37,8 @@ export const assessQualityWithOpenAI = async(content) => {
           - Lucidity & Clarity
           - Context Maintenance
           
-          Provide a score out of 100 and a brief explanation for each criterion (Mandatory explanation for all criteria). Judge strictly.
-          Give the complete breakdown of the score. There should be no doubts.
+          Provide a score out of 100 and a brief explanation for each criterion (Mandatory explanation for all criteria). Judge very strictly.
+          Give the complete breakdown of the score. Try to give marks corresponding to a normal distribution.
           
           SOP Content:
           "${content}"
@@ -74,5 +74,25 @@ function handleOpenAIError(error) {
     } else {
         // Non-API error
         console.error('Unexpected Error:', error);
+    }
+}
+
+
+export async function generateChecklistItems(sopContent) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                { "role": 'system', "content": 'You are an AI assistant that creates concise checklist items based on the input SOP content.' },
+                { "role": 'user', "content": `Based on the following SOP content, create a list of concise checklist items:\n${sopContent}` },
+            ],
+            max_tokens: 500,
+        });
+
+        const checklist = response.choices[0].message.content.trim().split('\n').map(item => item.trim());
+        return { checklist };
+    } catch (error) {
+        console.error('Error generating checklist:', error);
+        throw error;
     }
 }

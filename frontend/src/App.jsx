@@ -7,12 +7,19 @@ import AISuggestions from './components/AISuggestions';
 import LogChange from './components/LogChange';
 import ViewSOP from './components/ViewSOP';
 import ElapsedSOP from './components/ElapsedSOP'; // Import ElapsedSOP component
+import Notifications from './components/Notifications'; // Import Notifications component
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false); // State for managing the notifications dropdown
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleNotifications = () => {
+    setNotificationsOpen(!notificationsOpen);
   };
 
   return (
@@ -24,6 +31,24 @@ const App = () => {
               <img src="https://github.com/El-Invierno/SopManagement/blob/main/frontend/public/logo.jpg?raw=true" alt="Logo" className="h-8" />
               <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">SOP Management</span>
             </Link>
+            <div className="flex items-center space-x-6">
+              <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link>
+              <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
+              <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
+              <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggest/Gap Analysis</Link>
+              <Link to="/log-change" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Log Change</Link>
+              <Link to="/elapsed-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Control Capture</Link> {/* New Link */}
+              
+              {/* Notifications Bell Icon */}
+              <div className="relative">
+                <button onClick={toggleNotifications} className="relative focus:outline-none">
+                  <IoMdNotificationsOutline size={24} />
+                  {/* Add a red dot if there are unread notifications */}
+                  <span className="absolute top-0 right-0 block w-2 h-2 bg-red-600 rounded-full"></span>
+                </button>
+                {notificationsOpen && <Notifications />} {/* Show Notifications dropdown */}
+              </div>
+            </div>
             <button
               type="button"
               onClick={toggleMenu}
@@ -36,14 +61,6 @@ const App = () => {
                 <path className="stroke-current" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <div className="hidden md:flex space-x-6">
-              <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link>
-              <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
-              <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
-              <Link to="/ai-suggestions" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">AI Suggest/Gap Analysis</Link>
-              <Link to="/log-change" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Log Change</Link>
-              <Link to="/elapsed-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Elapsed SOP</Link> {/* New Link */}
-            </div>
           </div>
         </nav>
         <div className={`bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 ${menuOpen ? 'block' : 'hidden'} md:hidden`} id="navbar-hamburger">

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://sopmanagement.onrender.com/api' });
+const API = axios.create({ baseURL: 'http://localhost:5000/api' });
 
 // SOP APIs
 export const createSOP = (sopData) => API.post('/sops/create', sopData);
@@ -14,3 +14,15 @@ export const updateSOPContent = (id, data) => API.put(`/sops/update/${id}`, data
 // AI APIs
 export const getAISuggestions = (id) => API.get(`/ai/suggestions/${id}`);
 export const getAssessQuality = (id) => API.get(`/ai/assess/${id}`);
+export const getChecklistItems = (id) => API.get(`/ai/checklist/${id}`);
+
+
+export const getNotifications = async () => {
+  try {
+    const response = await API.get('/notifications'); // Use the baseURL defined in the API instance
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    throw error;
+  }
+};
