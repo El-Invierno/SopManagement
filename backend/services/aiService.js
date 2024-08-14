@@ -26,6 +26,34 @@ export async function generateSuggestions(sopContent) {
     }
 }
 
+
+export async function generateResourceLinks(sopContent) {
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{
+                    "role": 'system',
+                    "content": 'You are an AI assistant that provides helpful and relevant online resources or links related to the given SOP content.'
+                },
+                {
+                    "role": 'user',
+                    "content": `Based on the following SOP content, provide a list of relevant online resources or links where additional data and best practices related to the SOP can be found:\n${sopContent}`
+                },
+            ],
+            max_tokens: 500,
+        });
+
+        // Parse the response to extract links and descriptions
+        const resources = response.choices[0].message.content.trim().split('\n').map(item => item.trim());
+
+        // Convert to a JSON object with key 'resources'
+        return { resources };
+    } catch (error) {
+        console.error('Error generating resource links:', error);
+        throw error;
+    }
+}
+
 // Function to assess the quality of SOP content using OpenAI
 export const assessQualityWithOpenAI = async(content) => {
     try {

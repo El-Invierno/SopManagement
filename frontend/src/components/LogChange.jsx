@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { getChangeLogs, getAllChangeLogs } from '../../api';
 
 const LogChange = () => {
@@ -84,9 +86,11 @@ const LogChange = () => {
               <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                 {new Date(log.changedAt).toLocaleString()}
               </time>
-              <p className={`mb-4 text-base font-normal text-gray-500 dark:text-gray-400 ${expandedLogIds.has(log._id) ? '' : 'line-clamp-3'}`}>
-                {log.change}
-              </p>
+              <div className={`mb-4 text-base font-normal text-gray-500 dark:text-gray-400 ${expandedLogIds.has(log._id) ? '' : 'line-clamp-3'}`}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {log.change}
+                </ReactMarkdown>
+              </div>
               <button
                 onClick={() => handleToggleExpand(log._id)}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mt-2"

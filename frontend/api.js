@@ -14,14 +14,16 @@ export const updateSOPContent = (id, data) => API.put(`/sops/update/${id}`, data
 export const getAISuggestions = (id) => API.get(`/ai/suggestions/${id}`);
 export const getAssessQuality = (id) => API.get(`/ai/assess/${id}`);
 export const getChecklistItems = (id) => API.get(`/ai/checklist/${id}`);
+export const getResourceLinks = (id) => API.get(`/ai/resources/${id}`);
 
 
-export const getNotifications = async () => {
-  try {
-    const response = await API.get('/notifications'); // Use the baseURL defined in the API instance
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching notifications:', error);
-    throw error;
-  }
+
+export const getNotifications = async() => {
+    try {
+        const response = await API.get('/notifications'); // Use the baseURL defined in the API instance
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        throw error;
+    }
 };

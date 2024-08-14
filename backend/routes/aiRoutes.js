@@ -1,7 +1,7 @@
 import express from 'express';
 import { generateSuggestions, assessQualityWithOpenAI } from '../services/aiService.js';
 import { getSOPContentById, updateQualityScore } from '../controllers/sopController.js';
-import {generateChecklistItems} from '../services/aiService.js';
+import { generateChecklistItems, generateResourceLinks } from '../services/aiService.js';
 
 const router = express.Router();
 
@@ -53,6 +53,17 @@ router.get('/checklist/:id', async(req, res) => {
         const content = await getSOPContentById(id);
         const checklist = await generateChecklistItems(content); // Generate checklist based on content
         res.json(checklist);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/resources/:id', async(req, res) => {
+    const { id } = req.params;
+    try {
+        const content = await getSOPContentById(id);
+        const resources = await generateResourceLinks(content); // Generate resource links based on content
+        res.json(resources);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

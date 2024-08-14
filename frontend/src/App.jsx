@@ -31,7 +31,7 @@ const App = () => {
               <img src="https://github.com/El-Invierno/SopManagement/blob/main/frontend/public/logo.jpg?raw=true" alt="Logo" className="h-8" />
               <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">SOP Management</span>
             </Link>
-            <div className="flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-6">
               <Link to="/view-sops" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">View SOPs</Link>
               <Link to="/create-sop" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Create SOP</Link>
               <Link to="/assess-quality" className="text-gray-900 dark:text-gray-400 hover:text-gray-700">Assess Quality</Link>
@@ -63,7 +63,8 @@ const App = () => {
             </button>
           </div>
         </nav>
-        <div className={`bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 ${menuOpen ? 'block' : 'hidden'} md:hidden`} id="navbar-hamburger">
+        {/* Mobile menu, toggle with button */}
+        <div className={`md:hidden ${menuOpen ? 'block' : 'hidden'} bg-gray-50 dark:bg-gray-800`}>
           <ul className="flex flex-col">
             <li>
               <Link to="/view-sops" className="block py-3 px-4 text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700" onClick={toggleMenu}>View SOPs</Link>
