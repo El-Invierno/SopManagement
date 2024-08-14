@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API = axios.create({ baseURL: 'http://localhost:5000/api' });
+import { BASE_URL, LOCAL_BASE_URL } from './constants';
+const API = axios.create({ baseURL: BASE_URL });
 
 // SOP APIs
 export const createSOP = (sopData) => API.post('/sops/create', sopData);

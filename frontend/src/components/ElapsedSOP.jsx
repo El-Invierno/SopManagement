@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getChecklistItems } from '../../api';
+import { BASE_URL, LOCAL_BASE_URL } from '../../constants';
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = BASE_URL;
 
 const ElapsedSOP = () => {
   const [sops, setSOPs] = useState([]);

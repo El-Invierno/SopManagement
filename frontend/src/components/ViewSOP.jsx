@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support
 import { BASE_URL,LOCAL_BASE_URL } from "../../constants.js";
 
-const API_BASE_URL = "http://localhost:5000/api"; // Update with your API base URL
+const API_BASE_URL = BASE_URL; // Update with your API base URL
 
 const ViewSOP = () => {
   const [sops, setSOPs] = useState([]);
