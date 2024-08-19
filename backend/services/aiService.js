@@ -6,16 +6,15 @@ const openai = new OpenAI({
 });
 
 // Function to generate suggestions for improving SOP content
-// Function to generate suggestions for improving SOP content
 export async function generateSuggestions(sopContent) {
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                { "role": 'system', "content": 'You are an AI assistant that provides clear and direct answers based on the input provided. Give the output a nice formating(mandatory)' },
+                { "role": 'system', "content": 'You are an AI assistant that provides clear and direct answers based on the input provided. Format the output in Markdown (mandatory).' },
                 { "role": 'user', "content": `Given the following SOP content, generate the most appropriate Standard Operating Procedure that could form out of the given input. Don't mention the title:\n${sopContent}` },
             ],
-            max_tokens: 500,
+            max_tokens: 700,
         });
 
         // Return JSON object with key 'suggestions'
@@ -31,14 +30,9 @@ export async function generateResourceLinks(sopContent) {
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
-            messages: [{
-                    "role": 'system',
-                    "content": 'You are an AI assistant that provides helpful and relevant online resources or links related to the given SOP content.'
-                },
-                {
-                    "role": 'user',
-                    "content": `Based on the following SOP content, provide a list of relevant online resources or links where additional data and best practices related to the SOP can be found:\n${sopContent}`
-                },
+            messages: [
+                { "role": 'system', "content": 'You are an AI assistant that provides helpful and relevant online resources or links related to the given SOP content. Format the output in Markdown (mandatory).' },
+                { "role": 'user', "content": `Based on the following SOP content, provide a list of relevant online resources or links where additional data and best practices related to the SOP can be found:\n${sopContent}` },
             ],
             max_tokens: 500,
         });
@@ -59,11 +53,13 @@ export const assessQualityWithOpenAI = async(content) => {
     try {
         const prompt = `
           Analyze the following SOP content based on Banking and Investment parameters on each of the following criteria:
-          - Length of Content [Real SOP content is ranging from 500 words onwards].
-          - Punctuation Usage
-          - Language Understanding
-          - Lucidity & Clarity
-          - Context Maintenance
+          - **Length of Content** [Real SOP content is ranging from 500 words onwards].
+          - **Punctuation Usage**
+          - **Language Understanding**
+          - **Lucidity & Clarity**
+          - **Context Maintenance**
+          - **Functional Correctness** [Check if the SOP correctly addresses all necessary procedures and steps]
+          - **Completeness** [Identify if there are any crucial steps or information missing in the SOP]
           
           Provide a score out of 100 and a brief explanation for each criterion (Mandatory explanation for all criteria). Judge very strictly.
           Give the complete breakdown of the score. Try to give marks corresponding to a normal distribution.
@@ -75,10 +71,10 @@ export const assessQualityWithOpenAI = async(content) => {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                { "role": 'system', "content": 'You are an AI that assesses the quality of SOPs out of 100. Give Total Score:' },
+                { "role": 'system', "content": 'You are an AI that assesses the quality of SOPs out of 100. Provide the score breakdown in Markdown format (mandatory).' },
                 { "role": 'user', "content": prompt },
             ],
-            max_tokens: 500,
+            max_tokens: 700,
         });
 
         const analysis = response.choices[0].message.content.trim();
@@ -111,7 +107,7 @@ export async function generateChecklistItems(sopContent) {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                { "role": 'system', "content": 'You are an AI assistant that creates concise checklist items based on the input SOP content.' },
+                { "role": 'system', "content": 'You are an AI assistant that creates concise checklist items based on the input SOP content. Format the output in Markdown (mandatory).' },
                 { "role": 'user', "content": `Based on the following SOP content, create a list of concise checklist items:\n${sopContent}` },
             ],
             max_tokens: 500,
