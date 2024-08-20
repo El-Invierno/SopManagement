@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support
-import { BASE_URL,LOCAL_BASE_URL } from "../../constants.js";
+import { BASE_URL, LOCAL_BASE_URL } from "../../constants.js";
 
 const API_BASE_URL = BASE_URL; // Update with your API base URL
 
@@ -17,7 +17,7 @@ const ViewSOP = () => {
 
   useEffect(() => {
     fetchSOPs();
-    
+
     // Load the checkbox state from localStorage
     const savedAutoCheckState = localStorage.getItem('isAutoCheckEnabled');
     if (savedAutoCheckState !== null) {
@@ -116,10 +116,15 @@ const ViewSOP = () => {
 
   const handleToggleChange = () => {
     const newState = !isAutoCheckEnabled;
-    console.log(newState);
     setIsAutoCheckEnabled(newState);
     // Save the new state to localStorage
     localStorage.setItem('isAutoCheckEnabled', JSON.stringify(newState));
+  };
+
+  const hideUpdateFields = () => {
+    setUpdateSOP(null);
+    setUpdatedTitle(""); // Clear updated title
+    setUpdatedContent(""); // Clear updated content
   };
 
   return (
@@ -189,7 +194,7 @@ const ViewSOP = () => {
                 </div>
               </div>
               {updateSOP && updateSOP._id === sop._id && (
-                <div className="mt-4">
+                <div className="mt-4 relative">
                   <input
                     type="text"
                     className="block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:bg-gray-800 dark:text-white sm:text-sm"
@@ -203,6 +208,27 @@ const ViewSOP = () => {
                     value={updatedContent}
                     onChange={(e) => setUpdatedContent(e.target.value)}
                   />
+                  {/* Cross Icon to close the update fields */}
+                  <button
+                    onClick={hideUpdateFields}
+                    className="absolute top-0 right-0 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                    title="Close"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                   <div className="mt-2">
                     <button
                       onClick={handleUpdateSubmit}
